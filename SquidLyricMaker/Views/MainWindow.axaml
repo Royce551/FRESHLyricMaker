@@ -39,7 +39,7 @@
 		</DockPanel>
 
 		<DockPanel DockPanel.Dock="Top">
-			<CheckBox DockPanel.Dock="Right" Content="Word by word mode" Margin="0,0,10,0"/>
+			<CheckBox DockPanel.Dock="Right" Content="Word by word mode" IsChecked="{Binding WordByWordMode}" Margin="0,0,10,0"/>
 			<NativeMenuBar/>
 		</DockPanel>
 
@@ -85,6 +85,45 @@
 			</TabItem>
 			<TabItem Header="Synchronize">
 				<DockPanel>
+					<DockPanel DockPanel.Dock="Bottom" Margin="0,10,0,10">
+						<Button DockPanel.Dock="Right" Command="{Binding NextWordCommand}" IsVisible="{Binding WordByWordMode}" Margin="10,0,0,0" HotKey="Ctrl+Right">
+							<StackPanel>
+								<TextBlock Text="Next word" HorizontalAlignment="Center"/>
+								<TextBlock Text="[Ctrl+→]" Foreground="{DynamicResource SecondaryTextColor}" FontSize="10" HorizontalAlignment="Center"/>
+							</StackPanel>
+						</Button>
+						<Button DockPanel.Dock="Right" Command="{Binding PreviousWordCommand}" IsVisible="{Binding WordByWordMode}" Margin="10,0,0,0" HotKey="Ctrl+Left">
+							<StackPanel>
+								<TextBlock Text="Previous word" HorizontalAlignment="Center"/>
+								<TextBlock Text="[Ctrl+←]" Foreground="{DynamicResource SecondaryTextColor}" FontSize="10" HorizontalAlignment="Center"/>
+							</StackPanel>
+						</Button>
+						<Button DockPanel.Dock="Right" Command="{Binding TimestampWordCommand}" IsVisible="{Binding WordByWordMode}" Margin="10,0,0,0" HotKey="Ctrl+.">
+							<StackPanel>
+								<TextBlock Text="Timestamp word" HorizontalAlignment="Center"/>
+								<TextBlock Text="[Ctrl+.]" Foreground="{DynamicResource SecondaryTextColor}" FontSize="10" HorizontalAlignment="Center"/>
+							</StackPanel>
+						</Button>
+						<Button DockPanel.Dock="Left" Command="{Binding PreviousLineCommand}" Margin="0,0,10,0" HotKey="Ctrl+Up">
+							<StackPanel>
+								<TextBlock Text="Previous line" HorizontalAlignment="Center"/>
+								<TextBlock Text="[Ctrl+↑]" Foreground="{DynamicResource SecondaryTextColor}" FontSize="10" HorizontalAlignment="Center"/>
+							</StackPanel>
+						</Button>
+						<Button DockPanel.Dock="Left" Command="{Binding NextLineCommand}" Margin="0,0,10,0" HotKey="Ctrl+Down">
+							<StackPanel>
+								<TextBlock Text="Next line" HorizontalAlignment="Center"/>
+								<TextBlock Text="[Ctrl+↓]" Foreground="{DynamicResource SecondaryTextColor}" FontSize="10" HorizontalAlignment="Center"/>
+							</StackPanel>
+						</Button>
+						<Button HorizontalAlignment="Stretch" Command="{Binding TimestampLineCommand}" HotKey="Ctrl+Space">
+							<StackPanel>
+								<TextBlock Text="Timestamp line" HorizontalAlignment="Center"/>
+								<TextBlock Text="[Ctrl+Space]" Foreground="{DynamicResource SecondaryTextColor}" FontSize="10" HorizontalAlignment="Center"/>
+							</StackPanel>
+						</Button>
+					</DockPanel>
+					
 					<ListBox Items="{Binding Song}">
 						<ListBox.DataTemplates>
 							<DataTemplate>

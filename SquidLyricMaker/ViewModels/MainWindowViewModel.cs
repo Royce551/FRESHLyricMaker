@@ -156,9 +156,41 @@ namespace SquidLyricMaker.ViewModels
 
         public ObservableCollection<Translation> Translations { get; set; } = new();
 
+        private bool wordByWordMode = false;
+        public bool WordByWordMode
+        {
+            get => wordByWordMode;
+            set => this.RaiseAndSetIfChanged(ref wordByWordMode, value);
+        }
+
         public void AddTranslationCommand()
         {
             Translations.Add(new Translation(this));
+        }
+
+        public void TimestampLineCommand()
+        {
+
+        }
+        public void TimestampWordCommand()
+        {
+
+        }
+        public void PreviousLineCommand()
+        {
+
+        }
+        public void NextLineCommand()
+        {
+
+        }
+        public void PreviousWordCommand()
+        {
+
+        }
+        public void NextWordCommand()
+        {
+
         }
     }
 
