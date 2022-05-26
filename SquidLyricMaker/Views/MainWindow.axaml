@@ -37,9 +37,13 @@
 			<Slider Value="{Binding CurrentTimeSeconds}" Maximum="{Binding TotalTimeSeconds}"/>
 			
 		</DockPanel>
-		
-		<NativeMenuBar DockPanel.Dock="Top"/>
-		
+
+		<DockPanel DockPanel.Dock="Top">
+			<CheckBox DockPanel.Dock="Right" Content="Word by word mode" Margin="0,0,10,0"/>
+			<NativeMenuBar/>
+		</DockPanel>
+
+
 		<TabControl SelectedIndex="1">
 			<TabItem Header="Write">
 				<ScrollViewer>
@@ -80,7 +84,34 @@
 
 			</TabItem>
 			<TabItem Header="Synchronize">
-				<TextBlock Text="To start synchronizing, import an audio file"/>
+				<DockPanel>
+					<ListBox Items="{Binding Song}">
+						<ListBox.DataTemplates>
+							<DataTemplate>
+								<DockPanel>
+									<TextBlock DockPanel.Dock="Left" Text="{Binding TimeStamp, StringFormat=\{0:mm\\:ss\\:fff\}}" Margin="0,0,10,0" Foreground="{DynamicResource SecondaryTextColor}"/>
+									<ItemsControl Items="{Binding Words}">
+										<ItemsControl.ItemsPanel>
+											<ItemsPanelTemplate>
+												<StackPanel Orientation="Horizontal"/>
+											</ItemsPanelTemplate>
+										</ItemsControl.ItemsPanel>
+										<ItemsControl.DataTemplates>
+											<DataTemplate>
+												<TextBlock Text="{Binding Word}" ToolTip.ShowDelay="100">
+													<ToolTip.Tip>
+														<TextBlock Text="{Binding TimeStamp, StringFormat=\{0:mm\\:ss\\:fff\}}"/>
+													</ToolTip.Tip>
+												</TextBlock>
+											</DataTemplate>
+										</ItemsControl.DataTemplates>
+									</ItemsControl>
+								</DockPanel>
+
+							</DataTemplate>
+						</ListBox.DataTemplates>
+					</ListBox>
+				</DockPanel>
 			</TabItem>
 		</TabControl>
 	</DockPanel>

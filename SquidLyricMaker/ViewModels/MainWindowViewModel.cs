@@ -131,7 +131,7 @@ namespace SquidLyricMaker.ViewModels
             foreach (var line in Song) line.Update();
         }
 
-        public List<LyricLine> Song = new();
+        public ObservableCollection<LyricLine> Song { get; set; } = new();
 
         private string sourceLanguageText = default!;
         public string SourceLanguageText
@@ -150,6 +150,7 @@ namespace SquidLyricMaker.ViewModels
                     }
                     Song.Add(lyricLine);
                 }
+                this.RaisePropertyChanged(nameof(Song));
             }
         }
 
@@ -208,7 +209,7 @@ namespace SquidLyricMaker.ViewModels
     {
         public TimeSpan TimeStamp { get; set; }
 
-        public List<LyricWord> Words { get; set; } = new();
+        public ObservableCollection<LyricWord> Words { get; set; } = new();
 
         public bool IsCurrentlySungLine => mainWindow.Player.CurrentTime > TimeStamp;
 
