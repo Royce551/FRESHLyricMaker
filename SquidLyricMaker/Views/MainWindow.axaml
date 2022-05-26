@@ -1,0 +1,88 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:SquidLyricMaker.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="SquidLyricMaker.Views.MainWindow"
+        Icon="/Assets/avalonia-logo.ico"
+        Title="SquidLyricMaker">
+
+    <Design.DataContext>
+        <vm:MainWindowViewModel/>
+    </Design.DataContext>
+
+	<NativeMenu.Menu>
+		<NativeMenu>
+			<NativeMenuItem Header="File">
+				<NativeMenu>
+					<NativeMenuItem Header="Import Audio"/>
+					<NativeMenuItem Header="Import LRC File"/>
+					<NativeMenuItem Header="Export"/>
+				</NativeMenu>
+			</NativeMenuItem>
+			<NativeMenuItem Header="Options">
+				
+			</NativeMenuItem>
+		</NativeMenu>
+	</NativeMenu.Menu>
+	
+	<DockPanel>
+		<DockPanel DockPanel.Dock="Bottom" Background="{DynamicResource ForegroundColor}">
+			<TextBlock DockPanel.Dock="Left" Text="{Binding CurrentTime, StringFormat=\{0:mm\\:ss\\:fff\}}" VerticalAlignment="Center"/>
+			<Button DockPanel.Dock="Right" Content="Forward 5 seconds" Command="{Binding ForwardFiveSeconds}"/>
+			<Button DockPanel.Dock="Right" Content="Play/Pause" Command="{Binding PlayPauseCommand}"/>
+			<Button DockPanel.Dock="Right" Content="Back 5 seconds" Command="{Binding BackFiveSeconds}"/>
+			<TextBlock DockPanel.Dock="Right" Text="{Binding TotalTime, StringFormat=\{0:mm\\:ss\\:fff\}}" VerticalAlignment="Center"/>
+			<Slider Value="{Binding CurrentTimeSeconds}" Maximum="{Binding TotalTimeSeconds}"/>
+			
+		</DockPanel>
+		
+		<NativeMenuBar DockPanel.Dock="Top"/>
+		
+		<TabControl>
+			<TabItem Header="Write">
+				<ScrollViewer>
+					<WrapPanel Orientation="Horizontal">
+
+						<DockPanel Background="{DynamicResource ForegroundColor}" Margin="5,5,0,0">
+							<Panel DockPanel.Dock="Top" Height="45">
+								<TextBlock Margin="5,5,0,5" Text="Source Language" VerticalAlignment="Center" Foreground="{DynamicResource SecondaryTextColor}"/>
+							</Panel>
+
+							<TextBox Text="{Binding SourceLanguageText}" AcceptsReturn="True" MinWidth="250" MinHeight="250"/>
+						</DockPanel>
+						
+						<WrapPanel DockPanel.Dock="Right" Orientation="Horizontal">
+							<ItemsControl Items="{Binding Translations}">
+								<ItemsControl.ItemsPanel>
+									<ItemsPanelTemplate>
+										<WrapPanel Orientation="Horizontal"/>
+									</ItemsPanelTemplate>
+								</ItemsControl.ItemsPanel>
+								<ItemsControl.DataTemplates>
+									<DataTemplate>
+										<DockPanel Background="{DynamicResource ForegroundColor}" Margin="5,5,0,0">
+											<DockPanel DockPanel.Dock="Top" Margin="5,5,0,5" Height="35">
+												<TextBox DockPanel.Dock="Left" Text="{Binding LanguageCode}"/>
+												<TextBlock Text="{Binding LanguageName}" Foreground="{DynamicResource SecondaryTextColor}" Margin="5,0,0,0" VerticalAlignment="Center"/>
+											</DockPanel>
+											<TextBox Text="{Binding Text}" AcceptsReturn="True" MinWidth="250" MinHeight="250" Watermark="Make sure this matches line-by line with the source or you will be disappointed by the results"/>
+										</DockPanel>
+									</DataTemplate>
+								</ItemsControl.DataTemplates>
+							</ItemsControl>
+						</WrapPanel>
+
+						<Button Content="Add a translation" Command="{Binding AddTranslationCommand}" Margin="10,0,0,0" VerticalAlignment="Center"/>
+					</WrapPanel>
+				</ScrollViewer>
+
+			</TabItem>
+			<TabItem Header="Synchronize">
+				<TextBlock Text="To start synchronizing, import an audio file"/>
+			</TabItem>
+		</TabControl>
+	</DockPanel>
+	
+</Window>
