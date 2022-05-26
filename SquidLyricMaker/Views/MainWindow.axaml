@@ -40,7 +40,7 @@
 		
 		<NativeMenuBar DockPanel.Dock="Top"/>
 		
-		<TabControl>
+		<TabControl SelectedIndex="1">
 			<TabItem Header="Write">
 				<ScrollViewer>
 					<WrapPanel Orientation="Horizontal">

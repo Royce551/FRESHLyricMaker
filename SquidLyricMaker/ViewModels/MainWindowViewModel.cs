@@ -11,13 +11,13 @@ namespace SquidLyricMaker.ViewModels
 {
     public class MainWindowViewModel : ViewModelBase
     {
-        private Player player = new();
+        public  Player Player { get; private set; } = new();
         private Timer progressTimer = new(100);
 
         public MainWindowViewModel()
         {
-            player.SongChanged += Player_SongChanged;
-            player.SongStopped += Player_SongStopped;
+            Player.SongChanged += Player_SongChanged;
+            Player.SongStopped += Player_SongStopped;
             progressTimer.Elapsed += ProgressTimer_Elapsed;
         }
 
@@ -28,8 +28,8 @@ namespace SquidLyricMaker.ViewModels
 
         public async void LoadFileCommand()
         {
-            await player.PlayAsync(SourceLanguageText);
-            player.Volume = 0.5f;
+            await Player.PlayAsync(SourceLanguageText);
+            Player.Volume = 0.5f;
         }
 
         private void Player_SongStopped(object? sender, EventArgs e)
@@ -46,22 +46,22 @@ namespace SquidLyricMaker.ViewModels
 
         public void PlayPauseCommand()
         {
-            if (!player.FileLoaded)
+            if (!Player.FileLoaded)
             {
                 LoadFileCommand();
                 return;
             }
-            if (player.Paused) player.Resume();
-            else player.Pause();
+            if (Player.Paused) Player.Resume();
+            else Player.Pause();
         }
 
         public void BackFiveSeconds()
         {
-            if (player.FileLoaded && player.CurrentTime.TotalSeconds > 5) player.CurrentTime -= TimeSpan.FromSeconds(5);
+            if (Player.FileLoaded && Player.CurrentTime.TotalSeconds > 5) Player.CurrentTime -= TimeSpan.FromSeconds(5);
         }
         public void ForwardFiveSeconds()
         {
-            if (player.FileLoaded && player.TotalTime.TotalSeconds - player.CurrentTime.TotalSeconds > 5) player.CurrentTime += TimeSpan.FromSeconds(5);
+            if (Player.FileLoaded && Player.TotalTime.TotalSeconds - Player.CurrentTime.TotalSeconds > 5) Player.CurrentTime += TimeSpan.FromSeconds(5);
         }
 
         private TimeSpan currentTime;
@@ -69,8 +69,8 @@ namespace SquidLyricMaker.ViewModels
         {
             get
             {
-                if (player.FileLoaded)
-                    return player.CurrentTime;
+                if (Player.FileLoaded)
+                    return Player.CurrentTime;
                 else return TimeSpan.Zero;
 
             }
@@ -85,15 +85,15 @@ namespace SquidLyricMaker.ViewModels
         {
             get
             {
-                if (player.FileLoaded)
-                    return player.CurrentTime.TotalSeconds;
+                if (Player.FileLoaded)
+                    return Player.CurrentTime.TotalSeconds;
                 else return 0;
 
             }
             set
             {
                 if (TimeSpan.FromSeconds(value) >= TotalTime) return;
-                player.CurrentTime = TimeSpan.FromSeconds(value);
+                Player.CurrentTime = TimeSpan.FromSeconds(value);
                 ProgressTick();
                 this.RaiseAndSetIfChanged(ref currentTimeSeconds, value);
             }
@@ -103,8 +103,8 @@ namespace SquidLyricMaker.ViewModels
         {
             get
             {
-                if (player.FileLoaded)
-                    return player.TotalTime;
+                if (Player.FileLoaded)
+                    return Player.TotalTime;
                 else return TimeSpan.Zero;
             }
             set
@@ -117,8 +117,8 @@ namespace SquidLyricMaker.ViewModels
         {
             get
             {
-                if (player.FileLoaded)
-                    return player.TotalTime.TotalSeconds;
+                if (Player.FileLoaded)
+                    return Player.TotalTime.TotalSeconds;
                 else return 0;
             }
             set => this.RaiseAndSetIfChanged(ref totalTimeSeconds, value);
@@ -128,13 +128,29 @@ namespace SquidLyricMaker.ViewModels
         {
             this.RaisePropertyChanged(nameof(CurrentTime));
             this.RaisePropertyChanged(nameof(CurrentTimeSeconds));
+            foreach (var line in Song) line.Update();
         }
 
-        private string? sourceLanguageText;
-        public string? SourceLanguageText
+        public List<LyricLine> Song = new();
+
+        private string sourceLanguageText = default!;
+        public string SourceLanguageText
         {
             get => sourceLanguageText;
-            set => this.RaiseAndSetIfChanged(ref sourceLanguageText, value);
+            set
+            {
+                this.RaiseAndSetIfChanged(ref sourceLanguageText, value);
+                Song.Clear();
+                foreach (var line in sourceLanguageText.Split('\n'))
+                {
+                    var lyricLine = new LyricLine(TimeSpan.Zero);
+                    foreach (var word in line.Split(' ', '/'))
+                    {
+                        lyricLine.Words.Add(new(this, TimeSpan.Zero, word));
+                    }
+                    Song.Add(lyricLine);
+                }
+            }
         }
 
         public ObservableCollection<Translation> Translations { get; set; } = new();
@@ -185,6 +201,46 @@ namespace SquidLyricMaker.ViewModels
         public Translation(MainWindowViewModel mainWindow)
         {
             this.mainWindow = mainWindow;
+        }
+    }
+
+    public class LyricLine : ViewModelBase
+    {
+        public TimeSpan TimeStamp { get; set; }
+
+        public List<LyricWord> Words { get; set; } = new();
+
+        public LyricLine(TimeSpan timeStamp)
+        {
+            TimeStamp = timeStamp;
+        }
+
+        public void Update()
+        {
+            foreach (var word in Words) word.Update();
+        }
+    }
+
+    public class LyricWord : ViewModelBase
+    {
+        public TimeSpan TimeStamp { get; set; }
+
+        public string Word { get; set; }
+
+        public bool IsCurrentlySungWord => mainWindow.Player.CurrentTime > TimeStamp;
+
+        private MainWindowViewModel mainWindow;
+
+        public LyricWord(MainWindowViewModel mainWindow, TimeSpan timeStamp, string word)
+        {
+            this.mainWindow = mainWindow;
+            TimeStamp = timeStamp;
+            Word = word;
+        }
+
+        public void Update()
+        {
+            this.RaisePropertyChanged(nameof(IsCurrentlySungWord));
         }
     }
 }
