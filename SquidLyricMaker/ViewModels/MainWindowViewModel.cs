@@ -143,7 +143,7 @@ namespace SquidLyricMaker.ViewModels
                 Song.Clear();
                 foreach (var line in sourceLanguageText.Split('\n'))
                 {
-                    var lyricLine = new LyricLine(TimeSpan.Zero);
+                    var lyricLine = new LyricLine(this, TimeSpan.Zero);
                     foreach (var word in line.Split(' ', '/'))
                     {
                         lyricLine.Words.Add(new(this, TimeSpan.Zero, word));
@@ -210,8 +210,13 @@ namespace SquidLyricMaker.ViewModels
 
         public List<LyricWord> Words { get; set; } = new();
 
-        public LyricLine(TimeSpan timeStamp)
+        public bool IsCurrentlySungLine => mainWindow.Player.CurrentTime > TimeStamp;
+
+        private MainWindowViewModel mainWindow;
+
+        public LyricLine(MainWindowViewModel mainWindow, TimeSpan timeStamp)
         {
+            this.mainWindow = mainWindow;
             TimeStamp = timeStamp;
         }
 
