@@ -133,6 +133,25 @@ namespace SquidLyricMaker.ViewModels
 
         public ObservableCollection<LyricLine> Song { get; set; } = new();
 
+        private int selectedLineIndex;
+        public int SelectedLineIndex
+        {
+            get => selectedLineIndex;
+            set
+            {
+                this.RaiseAndSetIfChanged(ref selectedLineIndex, value);
+            }
+        }
+
+        private LyricLine? SelectedLine
+        { 
+            get
+            {
+                if (Song.Count >= SelectedLineIndex) return Song[SelectedLineIndex];
+                else return null;
+            }
+        }
+
         private string sourceLanguageText = default!;
         public string SourceLanguageText
         {
@@ -170,7 +189,8 @@ namespace SquidLyricMaker.ViewModels
 
         public void TimestampLineCommand()
         {
-
+            if (SelectedLine != null) SelectedLine.TimeStamp = Player.CurrentTime;
+            NextLineCommand();
         }
         public void TimestampWordCommand()
         {
@@ -178,11 +198,13 @@ namespace SquidLyricMaker.ViewModels
         }
         public void PreviousLineCommand()
         {
-
+            if (SelectedLineIndex - 1 > 0)
+                SelectedLineIndex--;
         }
         public void NextLineCommand()
         {
-
+            if (SelectedLineIndex + 1 <= Song.Count)
+                SelectedLineIndex++;
         }
         public void PreviousWordCommand()
         {
@@ -239,9 +261,24 @@ namespace SquidLyricMaker.ViewModels
 
     public class LyricLine : ViewModelBase
     {
-        public TimeSpan TimeStamp { get; set; }
+        private TimeSpan timeStamp;
+        public TimeSpan TimeStamp
+        {
+            get => timeStamp;
+            set => this.RaiseAndSetIfChanged(ref timeStamp, value);
+        }
 
         public ObservableCollection<LyricWord> Words { get; set; } = new();
+
+        private bool selectedWordIndex;
+        public bool SelectedWordIndex
+        {
+            get => selectedWordIndex;
+            set
+            {
+                this.RaiseAndSetIfChanged(ref selectedWordIndex, value);
+            }
+        }
 
         public bool IsCurrentlySungLine => mainWindow.Player.CurrentTime > TimeStamp;
 
@@ -261,7 +298,12 @@ namespace SquidLyricMaker.ViewModels
 
     public class LyricWord : ViewModelBase
     {
-        public TimeSpan TimeStamp { get; set; }
+        private TimeSpan timeStamp;
+        public TimeSpan TimeStamp
+        {
+            get => timeStamp;
+            set => this.RaiseAndSetIfChanged(ref timeStamp, value);
+        }
 
         public string Word { get; set; }
 

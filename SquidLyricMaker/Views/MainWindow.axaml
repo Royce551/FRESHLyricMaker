@@ -29,11 +29,11 @@
 	
 	<DockPanel>
 		<DockPanel DockPanel.Dock="Bottom" Background="{DynamicResource ForegroundColor}">
-			<TextBlock DockPanel.Dock="Left" Text="{Binding CurrentTime, StringFormat=\{0:mm\\:ss\\:fff\}}" VerticalAlignment="Center"/>
-			<Button DockPanel.Dock="Right" Content="Forward 5 seconds" Command="{Binding ForwardFiveSeconds}"/>
-			<Button DockPanel.Dock="Right" Content="Play/Pause" Command="{Binding PlayPauseCommand}"/>
+			<TextBlock Margin="10,0,0,0" DockPanel.Dock="Left" Text="{Binding CurrentTime, StringFormat=\{0:mm\\:ss\\:fff\}}" VerticalAlignment="Center"/>
+			<Button Margin="10,0,10,0" DockPanel.Dock="Right" Content="Forward 5 seconds" Command="{Binding ForwardFiveSeconds}"/>
+			<Button Margin="10,0,0,0" DockPanel.Dock="Right" Content="Play/Pause" Command="{Binding PlayPauseCommand}"/>
 			<Button DockPanel.Dock="Right" Content="Back 5 seconds" Command="{Binding BackFiveSeconds}"/>
-			<TextBlock DockPanel.Dock="Right" Text="{Binding TotalTime, StringFormat=\{0:mm\\:ss\\:fff\}}" VerticalAlignment="Center"/>
+			<TextBlock Margin="0,0,10,0" DockPanel.Dock="Right" Text="{Binding TotalTime, StringFormat=\{0:mm\\:ss\\:fff\}}" VerticalAlignment="Center"/>
 			<Slider Value="{Binding CurrentTimeSeconds}" Maximum="{Binding TotalTimeSeconds}"/>
 			
 		</DockPanel>
@@ -124,18 +124,18 @@
 						</Button>
 					</DockPanel>
 					
-					<ListBox Items="{Binding Song}">
+					<ListBox Items="{Binding Song}" SelectedIndex="{Binding SelectedLineIndex}" SelectionMode="AlwaysSelected">
 						<ListBox.DataTemplates>
 							<DataTemplate>
 								<DockPanel>
 									<TextBlock DockPanel.Dock="Left" Text="{Binding TimeStamp, StringFormat=\{0:mm\\:ss\\:fff\}}" Margin="0,0,10,0" Foreground="{DynamicResource SecondaryTextColor}"/>
-									<ItemsControl Items="{Binding Words}">
-										<ItemsControl.ItemsPanel>
+									<ListBox Items="{Binding Words}" SelectedIndex="{Binding SelectedWordIndex}" SelectionMode="AlwaysSelected">
+										<ListBox.ItemsPanel>
 											<ItemsPanelTemplate>
 												<StackPanel Orientation="Horizontal"/>
 											</ItemsPanelTemplate>
-										</ItemsControl.ItemsPanel>
-										<ItemsControl.DataTemplates>
+										</ListBox.ItemsPanel>
+										<ListBox.DataTemplates>
 											<DataTemplate>
 												<TextBlock Text="{Binding Word}" ToolTip.ShowDelay="100">
 													<ToolTip.Tip>
@@ -143,8 +143,8 @@
 													</ToolTip.Tip>
 												</TextBlock>
 											</DataTemplate>
-										</ItemsControl.DataTemplates>
-									</ItemsControl>
+										</ListBox.DataTemplates>
+									</ListBox>
 								</DockPanel>
 
 							</DataTemplate>
