@@ -34,11 +34,13 @@ namespace SquidLyricMaker.ViewModels
 
         private void Player_SongStopped(object? sender, EventArgs e)
         {
+            IsReady = false;
             progressTimer.Stop();
         }
 
         private void Player_SongChanged(object? sender, EventArgs e)
         {
+            IsReady = true;
             progressTimer.Start();
             this.RaisePropertyChanged(nameof(TotalTime));
             this.RaisePropertyChanged(nameof(TotalTimeSeconds));
@@ -62,6 +64,13 @@ namespace SquidLyricMaker.ViewModels
         public void ForwardFiveSeconds()
         {
             if (Player.FileLoaded && Player.TotalTime.TotalSeconds - Player.CurrentTime.TotalSeconds > 5) Player.CurrentTime += TimeSpan.FromSeconds(5);
+        }
+
+        private bool isReady = false;
+        public bool IsReady
+        {
+            get => isReady;
+            set => this.RaiseAndSetIfChanged(ref isReady, value);
         }
 
         private TimeSpan currentTime;
@@ -189,7 +198,7 @@ namespace SquidLyricMaker.ViewModels
 
         public void TimestampLineCommand()
         {
-            if (SelectedLine != null) SelectedLine.TimeStamp = Player.CurrentTime;
+            if (SelectedLine != null && Player.FileLoaded) SelectedLine.TimeStamp = Player.CurrentTime;
             NextLineCommand();
         }
         public void TimestampWordCommand()
@@ -270,12 +279,17 @@ namespace SquidLyricMaker.ViewModels
 
         public ObservableCollection<LyricWord> Words { get; set; } = new();
 
-        private bool selectedWordIndex;
-        public bool SelectedWordIndex
+        private int selectedWordIndex = -1;
+        public int SelectedWordIndex
         {
             get => selectedWordIndex;
             set
             {
+                if (!mainWindow.WordByWordMode)
+                {
+                    selectedWordIndex = -1;
+                    return;
+                }
                 this.RaiseAndSetIfChanged(ref selectedWordIndex, value);
             }
         }

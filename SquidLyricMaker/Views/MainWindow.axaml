@@ -85,7 +85,7 @@
 			</TabItem>
 			<TabItem Header="Synchronize">
 				<DockPanel>
-					<DockPanel DockPanel.Dock="Bottom" Margin="0,10,0,10">
+					<DockPanel DockPanel.Dock="Bottom" Margin="0,10,0,10" IsVisible="{Binding IsReady}">
 						<Button DockPanel.Dock="Right" Command="{Binding NextWordCommand}" IsVisible="{Binding WordByWordMode}" Margin="10,0,0,0" HotKey="Ctrl+Right">
 							<StackPanel>
 								<TextBlock Text="Next word" HorizontalAlignment="Center"/>
@@ -124,32 +124,40 @@
 						</Button>
 					</DockPanel>
 					
-					<ListBox Items="{Binding Song}" SelectedIndex="{Binding SelectedLineIndex}" SelectionMode="AlwaysSelected">
+					<ListBox Items="{Binding Song}" SelectedIndex="{Binding SelectedLineIndex}" SelectionMode="AlwaysSelected" Background="{DynamicResource BackgroundColor}" ScrollViewer.HorizontalScrollBarVisibility="Auto" IsVisible="{Binding IsReady}">
+						<ListBox.Styles>
+							<Style Selector="ListBox /template/ ListBox#PART_ItemsPresenter">
+								<Setter Property="Margin" Value="-50"/>
+							</Style>
+						</ListBox.Styles>
 						<ListBox.DataTemplates>
 							<DataTemplate>
-								<DockPanel>
-									<TextBlock DockPanel.Dock="Left" Text="{Binding TimeStamp, StringFormat=\{0:mm\\:ss\\:fff\}}" Margin="0,0,10,0" Foreground="{DynamicResource SecondaryTextColor}"/>
-									<ListBox Items="{Binding Words}" SelectedIndex="{Binding SelectedWordIndex}" SelectionMode="AlwaysSelected">
-										<ListBox.ItemsPanel>
-											<ItemsPanelTemplate>
-												<StackPanel Orientation="Horizontal"/>
-											</ItemsPanelTemplate>
-										</ListBox.ItemsPanel>
-										<ListBox.DataTemplates>
-											<DataTemplate>
-												<TextBlock Text="{Binding Word}" ToolTip.ShowDelay="100">
-													<ToolTip.Tip>
-														<TextBlock Text="{Binding TimeStamp, StringFormat=\{0:mm\\:ss\\:fff\}}"/>
-													</ToolTip.Tip>
-												</TextBlock>
-											</DataTemplate>
-										</ListBox.DataTemplates>
-									</ListBox>
-								</DockPanel>
-
+								<Border CornerRadius="5" Background="{DynamicResource ForegroundColor}" Margin="-5" Padding="5">
+									<DockPanel>
+										<TextBlock DockPanel.Dock="Left" Text="{Binding TimeStamp, StringFormat=\{0:mm\\:ss\\:fff\}}" Margin="0,0,10,0" Foreground="{DynamicResource SecondaryTextColor}" VerticalAlignment="Center"/>
+										<ListBox Items="{Binding Words}" SelectedIndex="{Binding SelectedWordIndex}" SelectionMode="Single">
+											<ListBox.ItemsPanel>
+												<ItemsPanelTemplate>
+													<StackPanel Orientation="Horizontal"/>
+												</ItemsPanelTemplate>
+											</ListBox.ItemsPanel>
+											<ListBox.DataTemplates>
+												<DataTemplate>
+													<TextBlock Text="{Binding Word}" ToolTip.ShowDelay="100">
+														<ToolTip.Tip>
+															<TextBlock Text="{Binding TimeStamp, StringFormat=\{0:mm\\:ss\\:fff\}}"/>
+														</ToolTip.Tip>
+													</TextBlock>
+												</DataTemplate>
+											</ListBox.DataTemplates>
+										</ListBox>
+									</DockPanel>
+								</Border>
 							</DataTemplate>
 						</ListBox.DataTemplates>
 					</ListBox>
+					
+					<TextBlock Text="To start synchronizing, import an audio file using the File menu!" IsVisible="{Binding !IsReady}"/>
 				</DockPanel>
 			</TabItem>
 		</TabControl>
