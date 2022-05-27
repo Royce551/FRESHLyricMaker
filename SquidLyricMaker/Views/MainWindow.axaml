@@ -157,7 +157,7 @@
 						</ListBox.DataTemplates>
 					</ListBox>
 					
-					<TextBlock Text="To start synchronizing, import an audio file using the File menu!" IsVisible="{Binding !IsReady}"/>
+					<TextBlock Text="To start synchronizing, import an audio file using the File menu." IsVisible="{Binding !IsReady}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
 				</DockPanel>
 			</TabItem>
 		</TabControl>

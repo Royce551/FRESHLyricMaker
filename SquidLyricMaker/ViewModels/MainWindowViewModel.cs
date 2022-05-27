@@ -152,7 +152,7 @@ namespace SquidLyricMaker.ViewModels
             }
         }
 
-        private LyricLine? SelectedLine
+        public LyricLine? SelectedLine
         { 
             get
             {
@@ -203,7 +203,13 @@ namespace SquidLyricMaker.ViewModels
         }
         public void TimestampWordCommand()
         {
+            if (WordByWordMode && SelectedLine != null && Player.FileLoaded)
+            {
+                if (SelectedLine.TimeStamp == TimeSpan.Zero) SelectedLine.TimeStamp = Player.CurrentTime;
 
+                SelectedLine.Words[SelectedLine.SelectedWordIndex].TimeStamp = Player.CurrentTime;
+                NextWordCommand();
+            }
         }
         public void PreviousLineCommand()
         {
@@ -217,11 +223,20 @@ namespace SquidLyricMaker.ViewModels
         }
         public void PreviousWordCommand()
         {
-
+            if (WordByWordMode && SelectedLine != null)
+            {
+                if (SelectedLine.SelectedWordIndex - 1 > 0)
+                    SelectedLine.SelectedWordIndex--;
+            }
         }
         public void NextWordCommand()
         {
-
+            if (WordByWordMode && SelectedLine != null)
+            {
+                
+                if (SelectedLine.SelectedWordIndex + 1 < SelectedLine.Words.Count) SelectedLine.SelectedWordIndex++;
+                else if (SelectedLine.SelectedWordIndex + 1 >= SelectedLine.Words.Count) NextLineCommand();
+            }
         }
     }
 
@@ -307,6 +322,8 @@ namespace SquidLyricMaker.ViewModels
         public void Update()
         {
             foreach (var word in Words) word.Update();
+            if (mainWindow.SelectedLine != this) SelectedWordIndex = -1;
+            if (mainWindow.SelectedLine == this && SelectedWordIndex == -1) SelectedWordIndex = 0;
         }
     }
 
