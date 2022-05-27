@@ -6,6 +6,7 @@ using System.Globalization;
 using System.Text;
 using ReactiveUI;
 using System.Timers;
+using SquidLyricMaker.Models;
 
 namespace SquidLyricMaker.ViewModels
 {
@@ -300,7 +301,17 @@ namespace SquidLyricMaker.ViewModels
         {
             get
             {
-                return "nyaa";
+                if (ExportPlainLRC)
+                {
+                    return new PlainLRCWriter
+                    {
+                        ExportWithTwoDigitPrecision = ExportWithTwoDigitPrecision,
+                        ExportWithoutMetadata = ExportWithoutMetadata,
+                        ExportWithTranslations = ExportWithTranslations,
+                        Metadata = Player.Metadata
+                    }.Write(Song, Translations);
+                }
+                else return "Enhanced LRC is not supported yet :(";
             }
         }
 
