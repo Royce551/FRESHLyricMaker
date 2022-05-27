@@ -242,8 +242,72 @@ namespace SquidLyricMaker.ViewModels
                 else if (SelectedLine.SelectedWordIndex + 1 >= SelectedLine.Words.Count) NextLineCommand();
             }
         }
-        
+
         // Export
+        private bool exportPlainLRC;
+        public bool ExportPlainLRC
+        {
+            get => exportPlainLRC;
+            set
+            {
+                this.RaiseAndSetIfChanged(ref exportPlainLRC, value);
+                this.RaisePropertyChanged(nameof(LrcFilePreview));
+            }
+        }
+        private bool exportEnhancedLRC;
+        public bool ExportEnhancedLRC
+        {
+            get => exportEnhancedLRC;
+            set
+            {
+                this.RaiseAndSetIfChanged(ref exportEnhancedLRC, value);
+                this.RaisePropertyChanged(nameof(LrcFilePreview));
+            }
+        }
+        private bool exportWithTranslations;
+        public bool ExportWithTranslations
+        {
+            get => exportWithTranslations;
+            set
+            {
+                this.RaiseAndSetIfChanged(ref exportWithTranslations, value);
+                this.RaisePropertyChanged(nameof(LrcFilePreview));
+            }
+        }
+
+        private bool exportWithoutMetadata;
+        public bool ExportWithoutMetadata
+        {
+            get => exportWithoutMetadata;
+            set
+            {
+                this.RaiseAndSetIfChanged(ref exportWithoutMetadata, value);
+                this.RaisePropertyChanged(nameof(LrcFilePreview));
+            }
+        }
+        private bool exportWithTwoDigitPrecision;
+        public bool ExportWithTwoDigitPrecision
+        {
+            get => exportWithTwoDigitPrecision;
+            set
+            {
+                this.RaiseAndSetIfChanged(ref exportWithTwoDigitPrecision, value);
+                this.RaisePropertyChanged(nameof(LrcFilePreview));
+            }
+        }
+
+        public string LrcFilePreview
+        {
+            get
+            {
+                return "nyaa";
+            }
+        }
+
+        public void ExportCommand()
+        {
+
+        }
     }
 
     public class Translation : ViewModelBase
