@@ -21,6 +21,8 @@ namespace SquidLyricMaker.ViewModels
             progressTimer.Elapsed += ProgressTimer_Elapsed;
         }
 
+        // Player
+
         private void ProgressTimer_Elapsed(object? sender, ElapsedEventArgs e)
         {
             ProgressTick();
@@ -196,6 +198,8 @@ namespace SquidLyricMaker.ViewModels
             Translations.Add(new Translation(this));
         }
 
+        // Synchronizer
+
         public void TimestampLineCommand()
         {
             if (SelectedLine != null && Player.FileLoaded) SelectedLine.TimeStamp = Player.CurrentTime;
@@ -238,6 +242,8 @@ namespace SquidLyricMaker.ViewModels
                 else if (SelectedLine.SelectedWordIndex + 1 >= SelectedLine.Words.Count) NextLineCommand();
             }
         }
+        
+        // Export
     }
 
     public class Translation : ViewModelBase
