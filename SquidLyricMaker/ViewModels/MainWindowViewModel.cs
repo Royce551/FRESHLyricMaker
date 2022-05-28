@@ -10,6 +10,9 @@ using SquidLyricMaker.Models;
 using System.IO;
 using SquidLyricMaker.Views;
 using Avalonia.Controls.ApplicationLifetimes;
+using Avalonia.Markup.Xaml.Styling;
+using Avalonia.Themes.Fluent;
+using Avalonia.Controls;
 
 namespace SquidLyricMaker.ViewModels
 {
@@ -18,14 +21,16 @@ namespace SquidLyricMaker.ViewModels
         public  Player Player { get; private set; } = new();
         private Timer progressTimer = new(100);
 
+        private IClassicDesktopStyleApplicationLifetime desktop => Avalonia.Application.Current.ApplicationLifetime as IClassicDesktopStyleApplicationLifetime;
         private MainWindow? MainWindow
         {
             get
             {
-#pragma warning disable CS8602 // this is 99% not going to be null
-                if (Avalonia.Application.Current.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop) return desktop.MainWindow as MainWindow;
-#pragma warning restore CS8602 // Dereference of a possibly null reference.
-                else throw new InvalidOperationException();
+                return desktop.MainWindow as MainWindow;
+            }
+            set
+            {
+                desktop.MainWindow = value;
             }
         }
 
@@ -45,8 +50,13 @@ namespace SquidLyricMaker.ViewModels
 
         public async void LoadAudioFileCommand()
         {
-            await Player.PlayAsync(SourceLanguageText);
-            Player.Volume = 0.5f;
+            var dialog = new OpenFileDialog()
+            {
+
+            };
+            var result = await dialog.ShowAsync(MainWindow!);
+            
+            if (result != null) await Player.PlayAsync(result[0]);
         }
 
         //public async void LoadLRCFileCommand()  implement in future release
@@ -66,12 +76,52 @@ namespace SquidLyricMaker.ViewModels
 
         public void SetThemeToDarkCommand()
         {
-
+            var darkSIADLTheme = new StyleInclude(new Uri("avares://SquidLyricMaker"))
+            {
+                Source = new Uri("avares://SIADL.Avalonia/DarkTheme.axaml")
+            };
+            var darkFluentTheme = new Avalonia.Themes.Fluent.FluentTheme(new Uri("avares://SquidLyricMaker"))
+            {
+                Mode = Avalonia.Themes.Fluent.FluentThemeMode.Dark
+            };
+#pragma warning disable CS8602 // this is 99% not going to be null
+            Avalonia.Application.Current.Styles[0] = darkFluentTheme;
+#pragma warning restore CS8602
+            Avalonia.Application.Current.Styles[1] = darkSIADLTheme;
+            // this is all a bit hacky; hopefully can be improved soon!
+            desktop.ShutdownMode = Avalonia.Controls.ShutdownMode.OnExplicitShutdown;
+            MainWindow?.Close();
+            MainWindow = new MainWindow
+            {
+                DataContext = this
+            };
+            MainWindow.Show();
+            desktop.ShutdownMode = Avalonia.Controls.ShutdownMode.OnMainWindowClose;
         }
 
         public void SetThemeToLightCommand()
         {
-
+            var lightSIADLTheme = new StyleInclude(new Uri("avares://SquidLyricMaker"))
+            {
+                Source = new Uri("avares://SIADL.Avalonia/LightTheme.axaml")
+            };
+            var lightFluentTheme = new Avalonia.Themes.Fluent.FluentTheme(new Uri("avares://SquidLyricMaker"))
+            {
+                Mode = Avalonia.Themes.Fluent.FluentThemeMode.Light
+            };
+#pragma warning disable CS8602 // this is 99% not going to be null
+            Avalonia.Application.Current.Styles[0] = lightFluentTheme;
+#pragma warning restore CS8602
+            Avalonia.Application.Current.Styles[1] = lightSIADLTheme;
+            // this is all a bit hacky; hopefully can be improved soon!
+            desktop.ShutdownMode = Avalonia.Controls.ShutdownMode.OnExplicitShutdown;
+            MainWindow?.Close();
+            MainWindow = new MainWindow
+            {
+                DataContext = this
+            };
+            MainWindow.Show();
+            desktop.ShutdownMode = Avalonia.Controls.ShutdownMode.OnMainWindowClose;
         }
 
         private void Player_SongStopped(object? sender, EventArgs e)
