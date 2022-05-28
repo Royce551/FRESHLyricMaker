@@ -45,8 +45,8 @@
 			</NativeMenuItem>
 			<NativeMenuItem Header="Help">
 				<NativeMenu>
-					<NativeMenuItem Header="Help..." Command="{Binding OpenHelpDialogCommand}" Gesture="F1"/>
-					<NativeMenuItem Header="About SquidLyricMaker..." Command="{Binding OpenAboutDialogCommand}"/>
+					<NativeMenuItem Header="Help..." Command="{Binding ShowHelpDialogCommand}" Gesture="F1"/>
+					<NativeMenuItem Header="About SquidLyricMaker..." Command="{Binding ShowAboutDialogCommand}"/>
 				</NativeMenu>
 			</NativeMenuItem>
 		</NativeMenu>

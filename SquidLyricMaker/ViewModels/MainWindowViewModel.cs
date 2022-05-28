@@ -71,7 +71,7 @@ namespace SquidLyricMaker.ViewModels
 
         public void ShowAboutDialogCommand()
         {
-
+            new AboutDialog().Show();
         }
 
         public void SetThemeToDarkCommand()

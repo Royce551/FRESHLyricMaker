@@ -1,0 +1,41 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+		xmlns:vm="using:SquidLyricMaker.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" Width="400" Height="400"
+        x:Class="SquidLyricMaker.Views.AboutDialog" SizeToContent="Height"
+        Title="About SquidLyricMaker">
+    <Window.DataContext>
+		<vm:AboutDialogViewModel/>
+	</Window.DataContext>
+
+	<StackPanel Spacing="5" Margin="10">
+		<Border CornerRadius="5" Background="{DynamicResource Blue}" Padding="10">
+			<TextBlock Text="Fancy logo goes here" FontSize="32" FontWeight="Bold"/>
+		</Border>
+
+		<Grid ColumnDefinitions="Auto, 1*" RowDefinitions="Auto, Auto, Auto, Auto">
+			<TextBlock Grid.Column="0" Grid.Row="0" Text="SquidLyricMaker" Foreground="{DynamicResource SecondaryTextColor}"/>
+			<TextBlock Grid.Column="1" Grid.Row="0" Text="{Binding AppVersion}" Margin="15,0,0,5"/>
+			
+			<TextBlock Grid.Column="0" Grid.Row="1" Text="Release Stream" Foreground="{DynamicResource SecondaryTextColor}"/>
+			<TextBlock Grid.Column="1" Grid.Row="1" Text="Stable" Margin="15,0,0,5"/>
+			
+			<TextBlock Grid.Column="0" Grid.Row="2" Text="Operating System" Foreground="{DynamicResource SecondaryTextColor}"/>
+			<TextBlock Grid.Column="1" Grid.Row="2" Text="{Binding OSVersion}" Margin="15,0,0,5"/>
+			
+			<TextBlock Grid.Column="0" Grid.Row="3" Text="Framework" Foreground="{DynamicResource SecondaryTextColor}"/>
+			<TextBlock Grid.Column="1" Grid.Row="3" Text="{Binding FrameworkVersion}" Margin="15,0,0,5"/>
+		</Grid>
+		
+		<Button Content="SquidLyricMaker on the interwebs"/>
+		<Button Content="Report an issue"/>
+		<Button Content="View source code"/>
+		
+		<TextBlock Foreground="{DynamicResource SecondaryTextColor}" Text="Copyright © 2022 Squidhouse Software (and open source contributors)" TextWrapping="Wrap" FontSize="10"/>
+		<TextBlock Foreground="{DynamicResource SecondaryTextColor}" Text="Licensed under the MIT license" TextWrapping="Wrap" FontSize="10"/>
+
+		<TextBlock Text="Thank you for using SquidLyricMaker ❤" TextWrapping="Wrap" HorizontalAlignment="Center"/>
+	</StackPanel>
+</Window>
