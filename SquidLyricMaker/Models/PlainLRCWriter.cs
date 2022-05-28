@@ -26,8 +26,8 @@ namespace SquidLyricMaker.Models
             if (!ExportWithoutMetadata)
             {
                 if (!string.IsNullOrEmpty(Metadata.Title)) builder.AppendLine($"[ti: {Metadata.Title}]");
-                if (Metadata.Artists.Length != 0) builder.AppendLine($"[ti: {string.Join(", ", Metadata.Artists)}]");
-                if (!string.IsNullOrEmpty(Metadata.Album)) builder.AppendLine($"[ti: {Metadata.Album}]");
+                if (Metadata.Artists.Length != 0) builder.AppendLine($"[ar: {string.Join(", ", Metadata.Artists)}]");
+                if (!string.IsNullOrEmpty(Metadata.Album)) builder.AppendLine($"[al: {Metadata.Album}]");
 
                 builder.AppendLine($"[length: {TimeSpan.FromSeconds(Metadata.Length):mm\\:ss\\:fff}]");
                 builder.AppendLine($"[re: SquidLyricMaker  https://github.com/royce551/squidlyricmaker]");

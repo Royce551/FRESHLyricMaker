@@ -16,13 +16,38 @@
 		<NativeMenu>
 			<NativeMenuItem Header="File">
 				<NativeMenu>
-					<NativeMenuItem Header="Import Audio"/>
-					<NativeMenuItem Header="Import LRC File"/>
-					<NativeMenuItem Header="Export"/>
+					<NativeMenuItem Header="Import Audio" Command="{Binding LoadAudioFileCommand}" Gesture="Ctrl+O"/>
+					<NativeMenuItem Header="Import LRC File" Command="{Binding LoadLRCFileCommand}"/>
 				</NativeMenu>
 			</NativeMenuItem>
 			<NativeMenuItem Header="Options">
-				
+				<NativeMenu>
+					<NativeMenuItem Header="Volume">
+						<NativeMenu>
+							<NativeMenuItem Header="25%" Command="{Binding SetVolume25Command}"/>
+							<NativeMenuItem Header="50%" Command="{Binding SetVolume50Command}"/>
+							<NativeMenuItem Header="75%" Command="{Binding SetVolume75Command}"/>
+							<NativeMenuItem Header="100%" Command="{Binding SetVolume100Command}"/>
+						</NativeMenu>
+					</NativeMenuItem>
+					<NativeMenuItem Header="Theme">
+						<NativeMenu>
+							<NativeMenuItem Header="Dark" Command="{Binding SetThemeToDarkCommand}"/>
+							<NativeMenuItem Header="Light" Command="{Binding SetThemeToLightCommand}"/>
+						</NativeMenu>
+					</NativeMenuItem>
+					<NativeMenuItem Header="Language">
+						<NativeMenu>
+							<NativeMenuItem Header="English" IsChecked="True"/>
+						</NativeMenu>
+					</NativeMenuItem>
+				</NativeMenu>
+			</NativeMenuItem>
+			<NativeMenuItem Header="Help">
+				<NativeMenu>
+					<NativeMenuItem Header="Help..." Command="{Binding OpenHelpDialogCommand}" Gesture="F1"/>
+					<NativeMenuItem Header="About SquidLyricMaker..." Command="{Binding OpenAboutDialogCommand}"/>
+				</NativeMenu>
 			</NativeMenuItem>
 		</NativeMenu>
 	</NativeMenu.Menu>

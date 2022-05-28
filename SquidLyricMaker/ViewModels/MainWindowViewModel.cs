@@ -7,6 +7,9 @@ using System.Text;
 using ReactiveUI;
 using System.Timers;
 using SquidLyricMaker.Models;
+using System.IO;
+using SquidLyricMaker.Views;
+using Avalonia.Controls.ApplicationLifetimes;
 
 namespace SquidLyricMaker.ViewModels
 {
@@ -14,6 +17,17 @@ namespace SquidLyricMaker.ViewModels
     {
         public  Player Player { get; private set; } = new();
         private Timer progressTimer = new(100);
+
+        private MainWindow? MainWindow
+        {
+            get
+            {
+#pragma warning disable CS8602 // this is 99% not going to be null
+                if (Avalonia.Application.Current.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop) return desktop.MainWindow as MainWindow;
+#pragma warning restore CS8602 // Dereference of a possibly null reference.
+                else throw new InvalidOperationException();
+            }
+        }
 
         public MainWindowViewModel()
         {
@@ -29,10 +43,35 @@ namespace SquidLyricMaker.ViewModels
             ProgressTick();
         }
 
-        public async void LoadFileCommand()
+        public async void LoadAudioFileCommand()
         {
             await Player.PlayAsync(SourceLanguageText);
             Player.Volume = 0.5f;
+        }
+
+        //public async void LoadLRCFileCommand()  implement in future release
+        //{
+        //    throw new NotImplementedException();
+        //}
+
+        public void SetVolume25Command() => Player.Volume = 0.25f;
+        public void SetVolume50Command() => Player.Volume = 0.50f;
+        public void SetVolume75Command() => Player.Volume = 0.75f;
+        public void SetVolume100Command() => Player.Volume = 1f;
+
+        public void ShowAboutDialogCommand()
+        {
+
+        }
+
+        public void SetThemeToDarkCommand()
+        {
+
+        }
+
+        public void SetThemeToLightCommand()
+        {
+
         }
 
         private void Player_SongStopped(object? sender, EventArgs e)
@@ -53,7 +92,7 @@ namespace SquidLyricMaker.ViewModels
         {
             if (!Player.FileLoaded)
             {
-                LoadFileCommand();
+                LoadAudioFileCommand();
                 return;
             }
             if (Player.Paused) Player.Resume();
@@ -205,6 +244,7 @@ namespace SquidLyricMaker.ViewModels
         {
             if (SelectedLine != null && Player.FileLoaded) SelectedLine.TimeStamp = Player.CurrentTime;
             NextLineCommand();
+            this.RaisePropertyChanged(nameof(LrcFilePreview));
         }
         public void TimestampWordCommand()
         {
@@ -214,6 +254,7 @@ namespace SquidLyricMaker.ViewModels
 
                 SelectedLine.Words[SelectedLine.SelectedWordIndex].TimeStamp = Player.CurrentTime;
                 NextWordCommand();
+                this.RaisePropertyChanged(nameof(LrcFilePreview));
             }
         }
         public void PreviousLineCommand()
@@ -317,7 +358,7 @@ namespace SquidLyricMaker.ViewModels
 
         public void ExportCommand()
         {
-
+            File.WriteAllText($"{Path.Combine(Path.GetDirectoryName(Player.FilePath), Path.GetFileNameWithoutExtension(Player.FilePath))}.lrc", LrcFilePreview);
         }
     }
 
