@@ -1,0 +1,31 @@
+name: .NET
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v2
+      with:
+        dotnet-version: 6.0.x
+    - name: Restore dependencies
+      run: dotnet restore
+      # temporarily using Debug until runtime errors w/ Release are fixed
+    - name: Publish
+      run: dotnet publish -c Debug -o ../windows -r win-x64 --self-contained true -p:PublishTrimmed=true
+    - name: Change directory
+      run: cd ../
+    - uses: actions/upload-artifact@v1
+      name: Upload artifact
+      with:
+        name: windows
+        path: ../windows
