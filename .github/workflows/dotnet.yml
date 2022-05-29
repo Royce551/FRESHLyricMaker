@@ -1,0 +1,46 @@
+name: .NET
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v2
+      with:
+        dotnet-version: 6.0.x
+    - name: Restore dependencies
+      run: dotnet restore
+      # temporarily using Debug until runtime errors w/ Release are fixed
+    - name: Publish for Windows
+      run: dotnet publish -c Debug -o ../windows -r win-x64 --self-contained true -p:PublishTrimmed=true -p:PublishSingleFile=true
+    - name: Publish for Mac
+      run: dotnet publish -c Debug -o ../osx -r osx-x64 --self-contained true -p:PublishTrimmed=true -p:PublishSingleFile=true
+    - name: Publish for Linux
+      run: dotnet publish -c Debug -o ../linux -r linux-x64 --self-contained true -p:PublishTrimmed=true -p:PublishSingleFile=true
+    - name: Change directory
+      run: cd ../
+    - uses: actions/upload-artifact@v1
+      name: Upload windows artifact
+      with:
+        name: windows
+        path: ../windows
+    - uses: actions/upload-artifact@v1
+      name: Upload mac artifact
+      with:
+        name: windows
+        path: ../mac
+    - uses: actions/upload-artifact@v1
+      name: Upload linux artifact
+      with:
+        name: windows
+        path: ../linux
+    
