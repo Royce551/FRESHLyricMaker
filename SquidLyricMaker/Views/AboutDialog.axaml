@@ -29,9 +29,9 @@
 			<TextBlock Grid.Column="1" Grid.Row="3" Text="{Binding FrameworkVersion}" Margin="15,0,0,5"/>
 		</Grid>
 		
-		<Button Content="SquidLyricMaker on the interwebs"/>
-		<Button Content="Report an issue"/>
-		<Button Content="View source code"/>
+		<Button Content="SquidLyricMaker on the interwebs" Command="{Binding OpenProjectWebsite}"/>
+		<Button Content="Report an issue" Command="{Binding ReportIssue}"/>
+		<Button Content="View source code" Command="{Binding OpenSourceCode}"/>
 		
 		<TextBlock Foreground="{DynamicResource SecondaryTextColor}" Text="Copyright © 2022 Squidhouse Software (and open source contributors)" TextWrapping="Wrap" FontSize="10"/>
 		<TextBlock Foreground="{DynamicResource SecondaryTextColor}" Text="Licensed under the MIT license" TextWrapping="Wrap" FontSize="10"/>
