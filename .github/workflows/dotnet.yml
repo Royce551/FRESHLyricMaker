@@ -19,13 +19,12 @@ jobs:
         dotnet-version: 6.0.x
     - name: Restore dependencies
       run: dotnet restore
-      # temporarily using Debug until runtime errors w/ Release are fixed
     - name: Publish for Windows
-      run: dotnet publish -c Debug -o ../windows -r win-x64 --self-contained true -p:PublishTrimmed=true -p:PublishSingleFile=true
+      run: dotnet publish -c Release -o ../windows -r win-x64 --self-contained true -p:PublishTrimmed=true -p:PublishSingleFile=true
     - name: Publish for Mac
-      run: dotnet publish -c Debug -o ../osx -r osx-x64 --self-contained true -p:PublishTrimmed=true -p:PublishSingleFile=true
+      run: dotnet publish -c Release -o ../osx -r osx-x64 --self-contained true -p:PublishTrimmed=true -p:PublishSingleFile=true
     - name: Publish for Linux
-      run: dotnet publish -c Debug -o ../linux -r linux-x64 --self-contained true -p:PublishTrimmed=true -p:PublishSingleFile=true
+      run: dotnet publish -c Release -o ../linux -r linux-x64 --self-contained true -p:PublishTrimmed=true -p:PublishSingleFile=true
     - name: Change directory
       run: cd ../
     - uses: actions/upload-artifact@v1
