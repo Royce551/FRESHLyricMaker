@@ -20,7 +20,7 @@
 			<TextBlock Grid.Column="1" Grid.Row="0" Text="{Binding AppVersion}" Margin="15,0,0,5"/>
 			
 			<TextBlock Grid.Column="0" Grid.Row="1" Text="Release Stream" Foreground="{DynamicResource SecondaryTextColor}"/>
-			<TextBlock Grid.Column="1" Grid.Row="1" Text="Stable" Margin="15,0,0,5"/>
+			<TextBlock Grid.Column="1" Grid.Row="1" Text="Blueprint" Margin="15,0,0,5"/>
 			
 			<TextBlock Grid.Column="0" Grid.Row="2" Text="Operating System" Foreground="{DynamicResource SecondaryTextColor}"/>
 			<TextBlock Grid.Column="1" Grid.Row="2" Text="{Binding OSVersion}" Margin="15,0,0,5"/>
