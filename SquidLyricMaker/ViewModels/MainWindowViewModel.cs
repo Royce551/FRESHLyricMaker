@@ -19,19 +19,21 @@ namespace SquidLyricMaker.ViewModels
     public class MainWindowViewModel : ViewModelBase
     {
         public  Player Player { get; private set; } = new();
-        private Timer progressTimer = new(100);
+        private readonly Timer progressTimer = new(100);
 
-        private IClassicDesktopStyleApplicationLifetime desktop => Avalonia.Application.Current.ApplicationLifetime as IClassicDesktopStyleApplicationLifetime;
-        private MainWindow? MainWindow
+        private static IClassicDesktopStyleApplicationLifetime Desktop
         {
             get
             {
-                return desktop.MainWindow as MainWindow;
+                if (Avalonia.Application.Current?.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
+                    return desktop;
+                else throw new Exception("Not running on desktop");
             }
-            set
-            {
-                desktop.MainWindow = value;
-            }
+        }
+        private static MainWindow? MainWindow
+        {
+            get => Desktop.MainWindow as MainWindow;
+            set => Desktop.MainWindow = value;
         }
 
         public MainWindowViewModel()
@@ -80,23 +82,23 @@ namespace SquidLyricMaker.ViewModels
             {
                 Source = new Uri("avares://SIADL.Avalonia/DarkTheme.axaml")
             };
-            var darkFluentTheme = new Avalonia.Themes.Fluent.FluentTheme(new Uri("avares://SquidLyricMaker"))
+            var darkFluentTheme = new FluentTheme(new Uri("avares://SquidLyricMaker"))
             {
-                Mode = Avalonia.Themes.Fluent.FluentThemeMode.Dark
+                Mode = FluentThemeMode.Dark
             };
 #pragma warning disable CS8602 // this is 99% not going to be null
             Avalonia.Application.Current.Styles[0] = darkFluentTheme;
 #pragma warning restore CS8602
             Avalonia.Application.Current.Styles[1] = darkSIADLTheme;
             // this is all a bit hacky; hopefully can be improved soon!
-            desktop.ShutdownMode = Avalonia.Controls.ShutdownMode.OnExplicitShutdown;
+            Desktop.ShutdownMode = ShutdownMode.OnExplicitShutdown;
             MainWindow?.Close();
             MainWindow = new MainWindow
             {
                 DataContext = this
             };
             MainWindow.Show();
-            desktop.ShutdownMode = Avalonia.Controls.ShutdownMode.OnMainWindowClose;
+            Desktop.ShutdownMode = ShutdownMode.OnMainWindowClose;
         }
 
         public void SetThemeToLightCommand()
@@ -105,23 +107,23 @@ namespace SquidLyricMaker.ViewModels
             {
                 Source = new Uri("avares://SIADL.Avalonia/LightTheme.axaml")
             };
-            var lightFluentTheme = new Avalonia.Themes.Fluent.FluentTheme(new Uri("avares://SquidLyricMaker"))
+            var lightFluentTheme = new FluentTheme(new Uri("avares://SquidLyricMaker"))
             {
-                Mode = Avalonia.Themes.Fluent.FluentThemeMode.Light
+                Mode = FluentThemeMode.Light
             };
 #pragma warning disable CS8602 // this is 99% not going to be null
             Avalonia.Application.Current.Styles[0] = lightFluentTheme;
 #pragma warning restore CS8602
             Avalonia.Application.Current.Styles[1] = lightSIADLTheme;
             // this is all a bit hacky; hopefully can be improved soon!
-            desktop.ShutdownMode = Avalonia.Controls.ShutdownMode.OnExplicitShutdown;
+            Desktop.ShutdownMode = ShutdownMode.OnExplicitShutdown;
             MainWindow?.Close();
             MainWindow = new MainWindow
             {
                 DataContext = this
             };
             MainWindow.Show();
-            desktop.ShutdownMode = Avalonia.Controls.ShutdownMode.OnMainWindowClose;
+            Desktop.ShutdownMode = ShutdownMode.OnMainWindowClose;
         }
 
         private void Player_SongStopped(object? sender, EventArgs e)
@@ -173,7 +175,6 @@ namespace SquidLyricMaker.ViewModels
                 if (Player.FileLoaded)
                     return Player.CurrentTime;
                 else return TimeSpan.Zero;
-
             }
             set
             {
@@ -199,7 +200,6 @@ namespace SquidLyricMaker.ViewModels
                 this.RaiseAndSetIfChanged(ref currentTimeSeconds, value);
             }
         }
-        private TimeSpan totalTime;
         public TimeSpan TotalTime
         {
             get
@@ -208,12 +208,7 @@ namespace SquidLyricMaker.ViewModels
                     return Player.TotalTime;
                 else return TimeSpan.Zero;
             }
-            set
-            {
-                this.RaiseAndSetIfChanged(ref totalTime, value);
-            }
         }
-        private double totalTimeSeconds;
         public double TotalTimeSeconds
         {
             get
@@ -222,7 +217,6 @@ namespace SquidLyricMaker.ViewModels
                     return Player.TotalTime.TotalSeconds;
                 else return 0;
             }
-            set => this.RaiseAndSetIfChanged(ref totalTimeSeconds, value);
         }
 
         public void ProgressTick()
@@ -231,6 +225,39 @@ namespace SquidLyricMaker.ViewModels
             this.RaisePropertyChanged(nameof(CurrentTimeSeconds));
             foreach (var line in Song) line.Update();
         }
+
+        // Writer
+
+        private string sourceLanguageText = default!;
+        public string SourceLanguageText
+        {
+            get => sourceLanguageText;
+            set
+            {
+                this.RaiseAndSetIfChanged(ref sourceLanguageText, value);
+                Song.Clear();
+                foreach (var line in sourceLanguageText.Split(Environment.NewLine))
+                {
+                    var lyricLine = new LyricLine(this, TimeSpan.Zero);
+                    foreach (var word in line.Split(' ', '/'))
+                    {
+                        lyricLine.Words.Add(new(this, TimeSpan.Zero, word));
+                    }
+                    Song.Add(lyricLine);
+                }
+                this.RaisePropertyChanged(nameof(Song));
+                this.RaisePropertyChanged(nameof(LrcFilePreview));
+            }
+        }
+
+        public ObservableCollection<Translation> Translations { get; set; } = new();
+
+        public void AddTranslationCommand()
+        {
+            Translations.Add(new Translation(this));
+        }
+
+        // Synchronizer
 
         public ObservableCollection<LyricLine> Song { get; set; } = new();
 
@@ -245,7 +272,7 @@ namespace SquidLyricMaker.ViewModels
         }
 
         public LyricLine? SelectedLine
-        { 
+        {
             get
             {
                 if (Song.Count >= SelectedLineIndex) return Song[SelectedLineIndex];
@@ -253,42 +280,12 @@ namespace SquidLyricMaker.ViewModels
             }
         }
 
-        private string sourceLanguageText = default!;
-        public string SourceLanguageText
-        {
-            get => sourceLanguageText;
-            set
-            {
-                this.RaiseAndSetIfChanged(ref sourceLanguageText, value);
-                Song.Clear();
-                foreach (var line in sourceLanguageText.Split('\n'))
-                {
-                    var lyricLine = new LyricLine(this, TimeSpan.Zero);
-                    foreach (var word in line.Split(' ', '/'))
-                    {
-                        lyricLine.Words.Add(new(this, TimeSpan.Zero, word));
-                    }
-                    Song.Add(lyricLine);
-                }
-                this.RaisePropertyChanged(nameof(Song));
-            }
-        }
-
-        public ObservableCollection<Translation> Translations { get; set; } = new();
-
         private bool wordByWordMode = false;
         public bool WordByWordMode
         {
             get => wordByWordMode;
             set => this.RaiseAndSetIfChanged(ref wordByWordMode, value);
         }
-
-        public void AddTranslationCommand()
-        {
-            Translations.Add(new Translation(this));
-        }
-
-        // Synchronizer
 
         public void TimestampLineCommand()
         {
@@ -329,14 +326,14 @@ namespace SquidLyricMaker.ViewModels
         {
             if (WordByWordMode && SelectedLine != null)
             {
-                
-                if (SelectedLine.SelectedWordIndex + 1 < SelectedLine.Words.Count) SelectedLine.SelectedWordIndex++;
-                else if (SelectedLine.SelectedWordIndex + 1 >= SelectedLine.Words.Count) NextLineCommand();
+                var nextWordIndex = SelectedLine.SelectedWordIndex + 1;
+                if (nextWordIndex < SelectedLine.Words.Count) SelectedLine.SelectedWordIndex++;
+                else if (nextWordIndex + 1 >= SelectedLine.Words.Count) NextLineCommand();
             }
         }
 
         // Export
-        private bool exportPlainLRC;
+        private bool exportPlainLRC = true;
         public bool ExportPlainLRC
         {
             get => exportPlainLRC;
@@ -397,7 +394,7 @@ namespace SquidLyricMaker.ViewModels
                     return new PlainLRCWriter
                     {
                         ExportWithTwoDigitPrecision = ExportWithTwoDigitPrecision,
-                        ExportWithoutMetadata = ExportWithoutMetadata,
+                        ExportWithoutMetadata = IsReady ? ExportWithoutMetadata : true,
                         ExportWithTranslations = ExportWithTranslations,
                         Metadata = Player.Metadata
                     }.Write(Song, Translations);
@@ -408,7 +405,7 @@ namespace SquidLyricMaker.ViewModels
 
         public void ExportCommand()
         {
-            File.WriteAllText($"{Path.Combine(Path.GetDirectoryName(Player.FilePath), Path.GetFileNameWithoutExtension(Player.FilePath))}.lrc", LrcFilePreview);
+            File.WriteAllText($"{Path.Combine(Path.GetDirectoryName(Player.FilePath) ?? "", Path.GetFileNameWithoutExtension(Player.FilePath))}.lrc", LrcFilePreview);
         }
     }
 
@@ -440,15 +437,15 @@ namespace SquidLyricMaker.ViewModels
             }
         }
 
-        private string? text;
-        public string? Text
+        private string text = "";
+        public string Text
         {
             get => text;
             set => this.RaiseAndSetIfChanged(ref text, value);
         }
 
 
-        private MainWindowViewModel mainWindow;
+        private readonly MainWindowViewModel mainWindow;
         public Translation(MainWindowViewModel mainWindow)
         {
             this.mainWindow = mainWindow;
@@ -483,7 +480,7 @@ namespace SquidLyricMaker.ViewModels
 
         public bool IsCurrentlySungLine => mainWindow.Player.CurrentTime > TimeStamp;
 
-        private MainWindowViewModel mainWindow;
+        private readonly MainWindowViewModel mainWindow;
 
         public LyricLine(MainWindowViewModel mainWindow, TimeSpan timeStamp)
         {
@@ -495,7 +492,7 @@ namespace SquidLyricMaker.ViewModels
         {
             foreach (var word in Words) word.Update();
             if (mainWindow.SelectedLine != this) SelectedWordIndex = -1;
-            if (mainWindow.SelectedLine == this && SelectedWordIndex == -1) SelectedWordIndex = 0;
+            else if (SelectedWordIndex == -1) SelectedWordIndex = 0;
         }
     }
 
@@ -512,7 +509,7 @@ namespace SquidLyricMaker.ViewModels
 
         public bool IsCurrentlySungWord => mainWindow.Player.CurrentTime > TimeStamp;
 
-        private MainWindowViewModel mainWindow;
+        private readonly MainWindowViewModel mainWindow;
 
         public LyricWord(MainWindowViewModel mainWindow, TimeSpan timeStamp, string word)
         {

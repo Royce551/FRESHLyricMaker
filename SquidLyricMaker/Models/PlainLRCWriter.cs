@@ -20,11 +20,11 @@ namespace SquidLyricMaker.Models
 
         public string Write(ICollection<LyricLine> song, ICollection<Translation> translations)
         {
-            if (Metadata is null) throw new InvalidOperationException();
-
             var builder = new StringBuilder();
             if (!ExportWithoutMetadata)
             {
+                if (Metadata is null) throw new InvalidOperationException();
+
                 if (!string.IsNullOrEmpty(Metadata.Title)) builder.AppendLine($"[ti: {Metadata.Title}]");
                 if (Metadata.Artists.Length != 0) builder.AppendLine($"[ar: {string.Join(", ", Metadata.Artists)}]");
                 if (!string.IsNullOrEmpty(Metadata.Album)) builder.AppendLine($"[al: {Metadata.Album}]");
@@ -45,7 +45,10 @@ namespace SquidLyricMaker.Models
                 {
                     foreach (var translation in translations)
                     {
-                        builder.AppendLine($"[{translation.LanguageCode}] {translation.Text.Split('\n')[i]}");
+                        var translationLines = translation.Text.Split('\n');
+                        if (translationLines.Length < song.Count) return $"The {translation.LanguageName} translation doesn't line up with the source";
+
+                        builder.AppendLine($"[{translation.LanguageCode}] {translationLines[i].Trim('\r')}");
                     }
                 }
                 i++;
