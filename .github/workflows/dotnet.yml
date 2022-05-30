@@ -36,11 +36,11 @@ jobs:
     - uses: actions/upload-artifact@v1
       name: Upload mac artifact
       with:
-        name: windows
-        path: ../mac
+        name: mac
+        path: ../osx
     - uses: actions/upload-artifact@v1
       name: Upload linux artifact
       with:
-        name: windows
+        name: linux
         path: ../linux
     
