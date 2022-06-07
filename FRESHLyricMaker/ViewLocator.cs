@@ -1,9 +1,9 @@
 using Avalonia.Controls;
 using Avalonia.Controls.Templates;
-using SquidLyricMaker.ViewModels;
+using FRESHLyricMaker.ViewModels;
 using System;
 
-namespace SquidLyricMaker
+namespace FRESHLyricMaker
 {
     public class ViewLocator : IDataTemplate
     {

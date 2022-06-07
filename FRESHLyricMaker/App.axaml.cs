@@ -1,10 +1,10 @@
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
-using SquidLyricMaker.ViewModels;
-using SquidLyricMaker.Views;
+using FRESHLyricMaker.ViewModels;
+using FRESHLyricMaker.Views;
 
-namespace SquidLyricMaker
+namespace FRESHLyricMaker
 {
     public partial class App : Application
     {

@@ -1,12 +1,12 @@
 ﻿using FRESHMusicPlayer.Backends;
-using SquidLyricMaker.ViewModels;
+using FRESHLyricMaker.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SquidLyricMaker.Models
+namespace FRESHLyricMaker.Models
 {
     public class PlainLRCWriter : ILyricWriter
     {
@@ -30,7 +30,7 @@ namespace SquidLyricMaker.Models
                 if (!string.IsNullOrEmpty(Metadata.Album)) builder.AppendLine($"[al: {Metadata.Album}]");
 
                 builder.AppendLine($"[length: {TimeSpan.FromSeconds(Metadata.Length):mm\\:ss\\:fff}]");
-                builder.AppendLine($"[re: SquidLyricMaker  https://github.com/royce551/squidlyricmaker]");
+                builder.AppendLine($"[re: FRESHLyricMaker  https://github.com/royce551/FRESHLyricMaker]");
 
                 builder.AppendLine();
             }

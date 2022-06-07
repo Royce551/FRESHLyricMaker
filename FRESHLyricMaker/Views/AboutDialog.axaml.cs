@@ -2,7 +2,7 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 
-namespace SquidLyricMaker.Views
+namespace FRESHLyricMaker.Views
 {
     public partial class AboutDialog : Window
     {

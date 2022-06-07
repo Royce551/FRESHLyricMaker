@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace SquidLyricMaker.ViewModels
+namespace FRESHLyricMaker.ViewModels
 {
     public class ViewModelBase : ReactiveObject
     {

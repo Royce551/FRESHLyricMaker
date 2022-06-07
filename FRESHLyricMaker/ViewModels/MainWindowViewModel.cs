@@ -6,15 +6,15 @@ using System.Globalization;
 using System.Text;
 using ReactiveUI;
 using System.Timers;
-using SquidLyricMaker.Models;
+using FRESHLyricMaker.Models;
 using System.IO;
-using SquidLyricMaker.Views;
+using FRESHLyricMaker.Views;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml.Styling;
 using Avalonia.Themes.Fluent;
 using Avalonia.Controls;
 
-namespace SquidLyricMaker.ViewModels
+namespace FRESHLyricMaker.ViewModels
 {
     public class MainWindowViewModel : ViewModelBase
     {
@@ -78,11 +78,11 @@ namespace SquidLyricMaker.ViewModels
 
         public void SetThemeToDarkCommand()
         {
-            var darkSIADLTheme = new StyleInclude(new Uri("avares://SquidLyricMaker"))
+            var darkSIADLTheme = new StyleInclude(new Uri("avares://FRESHLyricMaker"))
             {
                 Source = new Uri("avares://SIADL.Avalonia/DarkTheme.axaml")
             };
-            var darkFluentTheme = new FluentTheme(new Uri("avares://SquidLyricMaker"))
+            var darkFluentTheme = new FluentTheme(new Uri("avares://FRESHLyricMaker"))
             {
                 Mode = FluentThemeMode.Dark
             };
@@ -103,11 +103,11 @@ namespace SquidLyricMaker.ViewModels
 
         public void SetThemeToLightCommand()
         {
-            var lightSIADLTheme = new StyleInclude(new Uri("avares://SquidLyricMaker"))
+            var lightSIADLTheme = new StyleInclude(new Uri("avares://FRESHLyricMaker"))
             {
                 Source = new Uri("avares://SIADL.Avalonia/LightTheme.axaml")
             };
-            var lightFluentTheme = new FluentTheme(new Uri("avares://SquidLyricMaker"))
+            var lightFluentTheme = new FluentTheme(new Uri("avares://FRESHLyricMaker"))
             {
                 Mode = FluentThemeMode.Light
             };

@@ -1,8 +1,8 @@
 using Avalonia.Controls;
-using SquidLyricMaker.ViewModels;
+using FRESHLyricMaker.ViewModels;
 using System;
 
-namespace SquidLyricMaker.Views
+namespace FRESHLyricMaker.Views
 {
     public partial class MainWindow : Window
     {

@@ -7,7 +7,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SquidLyricMaker.ViewModels
+namespace FRESHLyricMaker.ViewModels
 {
     public class AboutDialogViewModel : ViewModelBase
     {
@@ -37,8 +37,8 @@ namespace SquidLyricMaker.ViewModels
             }
         }
 
-        public void OpenProjectWebsite() => OpenURL("https://royce551.github.io/SquidLyricMaker");
-        public void ReportIssue() => OpenURL("https://github.com/Royce551/SquidLyricMaker/issues/new");
-        public void OpenSourceCode() => OpenURL("https://github.com/Royce551/SquidLyricMaker");
+        public void OpenProjectWebsite() => OpenURL("https://royce551.github.io/FRESHLyricMaker");
+        public void ReportIssue() => OpenURL("https://github.com/Royce551/FRESHLyricMaker/issues/new");
+        public void OpenSourceCode() => OpenURL("https://github.com/Royce551/FRESHLyricMaker");
     }
 }

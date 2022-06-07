@@ -3,7 +3,7 @@ using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.ReactiveUI;
 using System;
 
-namespace SquidLyricMaker
+namespace FRESHLyricMaker
 {
     internal class Program
     {
