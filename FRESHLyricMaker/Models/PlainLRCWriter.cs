@@ -46,7 +46,7 @@ namespace FRESHLyricMaker.Models
                     foreach (var translation in translations)
                     {
                         var translationLines = translation.Text.Split('\n');
-                        if (translationLines.Length < song.Count) return $"The {translation.LanguageName} translation doesn't line up with the source";
+                        if (translationLines.Length < song.Count) return string.Format(Properties.Resources.InvalidTranslation, translation.LanguageName);
 
                         builder.AppendLine($"[{translation.LanguageCode}] {translationLines[i].Trim('\r')}");
                     }

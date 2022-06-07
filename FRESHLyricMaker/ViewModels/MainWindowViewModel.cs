@@ -399,7 +399,7 @@ namespace FRESHLyricMaker.ViewModels
                         Metadata = Player.Metadata
                     }.Write(Song, Translations);
                 }
-                else return "Enhanced LRC is not supported yet :(";
+                else return Properties.Resources.EnhancedLRC_NotSupported;
             }
         }
 
@@ -432,7 +432,7 @@ namespace FRESHLyricMaker.ViewModels
                 }
                 catch
                 {
-                    return "Invalid Language";
+                    return Properties.Resources.InvalidLanguage;
                 }
             }
         }

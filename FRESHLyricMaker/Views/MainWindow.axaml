@@ -3,6 +3,7 @@
         xmlns:vm="using:FRESHLyricMaker.ViewModels"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+		xmlns:resx="clr-namespace:FRESHLyricMaker.Properties"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="FRESHLyricMaker.Views.MainWindow"
         Icon="/Assets/avalonia-logo.ico"
@@ -14,39 +15,39 @@
 
 	<NativeMenu.Menu>
 		<NativeMenu>
-			<NativeMenuItem Header="File">
+			<NativeMenuItem Header="{x:Static resx:Resources.Menu_File}">
 				<NativeMenu>
-					<NativeMenuItem Header="Import Audio" Command="{Binding LoadAudioFileCommand}" Gesture="Ctrl+O"/>
-					<NativeMenuItem Header="Import LRC File" Command="{Binding LoadLRCFileCommand}"/>
+					<NativeMenuItem Header="{x:Static resx:Resources.Menu_File_Audio}" Command="{Binding LoadAudioFileCommand}" Gesture="Ctrl+O"/>
+					<NativeMenuItem Header="{x:Static resx:Resources.Menu_File_LRC}" Command="{Binding LoadLRCFileCommand}"/>
 				</NativeMenu>
 			</NativeMenuItem>
-			<NativeMenuItem Header="Options">
+			<NativeMenuItem Header="{x:Static resx:Resources.Menu_Options}">
 				<NativeMenu>
-					<NativeMenuItem Header="Volume">
+					<NativeMenuItem Header="{x:Static resx:Resources.Menu_Options_Volume}">
 						<NativeMenu>
-							<NativeMenuItem Header="25%" Command="{Binding SetVolume25Command}"/>
-							<NativeMenuItem Header="50%" Command="{Binding SetVolume50Command}"/>
-							<NativeMenuItem Header="75%" Command="{Binding SetVolume75Command}"/>
-							<NativeMenuItem Header="100%" Command="{Binding SetVolume100Command}"/>
+							<NativeMenuItem Header="_25%" Command="{Binding SetVolume25Command}"/>
+							<NativeMenuItem Header="_50%" Command="{Binding SetVolume50Command}"/>
+							<NativeMenuItem Header="_75%" Command="{Binding SetVolume75Command}"/>
+							<NativeMenuItem Header="_100%" Command="{Binding SetVolume100Command}"/>
 						</NativeMenu>
 					</NativeMenuItem>
-					<NativeMenuItem Header="Theme">
+					<NativeMenuItem Header="{x:Static resx:Resources.Menu_Options_Theme}">
 						<NativeMenu>
-							<NativeMenuItem Header="Dark" Command="{Binding SetThemeToDarkCommand}"/>
-							<NativeMenuItem Header="Light" Command="{Binding SetThemeToLightCommand}"/>
+							<NativeMenuItem Header="_Dark" Command="{Binding SetThemeToDarkCommand}"/>
+							<NativeMenuItem Header="_Light" Command="{Binding SetThemeToLightCommand}"/>
 						</NativeMenu>
 					</NativeMenuItem>
-					<NativeMenuItem Header="Language">
+					<NativeMenuItem Header="{x:Static resx:Resources.Menu_Options_Language}">
 						<NativeMenu>
-							<NativeMenuItem Header="English" IsChecked="True"/>
+							<NativeMenuItem Header="_English" IsChecked="True"/>
 						</NativeMenu>
 					</NativeMenuItem>
 				</NativeMenu>
 			</NativeMenuItem>
-			<NativeMenuItem Header="Help">
+			<NativeMenuItem Header="{x:Static resx:Resources.Menu_Help}">
 				<NativeMenu>
-					<NativeMenuItem Header="Help..." Command="{Binding ShowHelpDialogCommand}" Gesture="F1"/>
-					<NativeMenuItem Header="About FRESHLyricMaker..." Command="{Binding ShowAboutDialogCommand}"/>
+					<NativeMenuItem Header="{x:Static resx:Resources.Menu_Help_OpenHelp}" Command="{Binding ShowHelpDialogCommand}" Gesture="F1"/>
+					<NativeMenuItem Header="{x:Static resx:Resources.Menu_Help_About}" Command="{Binding ShowAboutDialogCommand}"/>
 				</NativeMenu>
 			</NativeMenuItem>
 		</NativeMenu>
@@ -55,28 +56,28 @@
 	<DockPanel>
 		<DockPanel DockPanel.Dock="Bottom" Background="{DynamicResource ForegroundColor}">
 			<TextBlock Margin="10,0,0,0" DockPanel.Dock="Left" Text="{Binding CurrentTime, StringFormat=\{0:mm\\:ss\\:fff\}}" VerticalAlignment="Center"/>
-			<Button Margin="10,0,10,0" DockPanel.Dock="Right" Content="Forward 5 seconds" Command="{Binding ForwardFiveSeconds}"/>
-			<Button Margin="10,0,0,0" DockPanel.Dock="Right" Content="Play/Pause" Command="{Binding PlayPauseCommand}"/>
-			<Button DockPanel.Dock="Right" Content="Back 5 seconds" Command="{Binding BackFiveSeconds}"/>
+			<Button Margin="10,0,10,0" DockPanel.Dock="Right" Content="{x:Static resx:Resources.ForwardFiveSec}" Command="{Binding ForwardFiveSeconds}"/>
+			<Button Margin="10,0,0,0" DockPanel.Dock="Right" Content="{x:Static resx:Resources.PlayPause}" Command="{Binding PlayPauseCommand}"/>
+			<Button DockPanel.Dock="Right" Content="{x:Static resx:Resources.BackFiveSec}" Command="{Binding BackFiveSeconds}"/>
 			<TextBlock Margin="0,0,10,0" DockPanel.Dock="Right" Text="{Binding TotalTime, StringFormat=\{0:mm\\:ss\\:fff\}}" VerticalAlignment="Center"/>
 			<Slider Value="{Binding CurrentTimeSeconds}" Maximum="{Binding TotalTimeSeconds}"/>
 			
 		</DockPanel>
 
 		<DockPanel DockPanel.Dock="Top">
-			<CheckBox DockPanel.Dock="Right" Content="Word by word mode" IsChecked="{Binding WordByWordMode}" Margin="0,0,10,0"/>
+			<CheckBox DockPanel.Dock="Right" Content="{x:Static resx:Resources.WordByWordMode}" IsChecked="{Binding WordByWordMode}" Margin="0,0,10,0"/>
 			<NativeMenuBar/>
 		</DockPanel>
 
 
 		<TabControl SelectedIndex="2">
-			<TabItem Header="Write">
+			<TabItem Header="{x:Static resx:Resources.Write}">
 				<ScrollViewer>
 					<WrapPanel Orientation="Horizontal">
 
 						<DockPanel Background="{DynamicResource ForegroundColor}" Margin="5,5,0,0">
 							<Panel DockPanel.Dock="Top" Height="45">
-								<TextBlock Margin="5,5,0,5" Text="Source Language" VerticalAlignment="Center" Foreground="{DynamicResource SecondaryTextColor}"/>
+								<TextBlock Margin="5,5,0,5" Text="{x:Static resx:Resources.SourceLanguage}" VerticalAlignment="Center" Foreground="{DynamicResource SecondaryTextColor}"/>
 							</Panel>
 
 							<TextBox Text="{Binding SourceLanguageText}" AcceptsReturn="True" MinWidth="250" MinHeight="250"/>
@@ -96,54 +97,54 @@
 												<TextBox DockPanel.Dock="Left" Text="{Binding LanguageCode}"/>
 												<TextBlock Text="{Binding LanguageName}" Foreground="{DynamicResource SecondaryTextColor}" Margin="5,0,0,0" VerticalAlignment="Center"/>
 											</DockPanel>
-											<TextBox Text="{Binding Text}" AcceptsReturn="True" MinWidth="250" MinHeight="250" Watermark="Make sure this matches line-by line with the source or you will be disappointed by the results"/>
+											<TextBox Text="{Binding Text}" AcceptsReturn="True" MinWidth="250" MinHeight="250" Watermark="{x:Static resx:Resources.TranslationHint}"/>
 										</DockPanel>
 									</DataTemplate>
 								</ItemsControl.DataTemplates>
 							</ItemsControl>
 						</WrapPanel>
 
-						<Button Content="Add a translation" Command="{Binding AddTranslationCommand}" Margin="10,0,0,0" VerticalAlignment="Center"/>
+						<Button Content="{x:Static resx:Resources.AddTranslation}" Command="{Binding AddTranslationCommand}" Margin="10,0,0,0" VerticalAlignment="Center"/>
 					</WrapPanel>
 				</ScrollViewer>
 
 			</TabItem>
-			<TabItem Header="Synchronize">
+			<TabItem Header="{x:Static resx:Resources.Synchronize}">
 				<DockPanel>
 					<DockPanel DockPanel.Dock="Bottom" Margin="0,10,0,10" IsVisible="{Binding IsReady}">
 						<Button DockPanel.Dock="Right" Command="{Binding NextWordCommand}" IsVisible="{Binding WordByWordMode}" Margin="10,0,0,0" HotKey="Ctrl+Right">
 							<StackPanel>
-								<TextBlock Text="Next word" HorizontalAlignment="Center"/>
+								<TextBlock Text="{x:Static resx:Resources.NextWord}" HorizontalAlignment="Center"/>
 								<TextBlock Text="[Ctrl+→]" Foreground="{DynamicResource SecondaryTextColor}" FontSize="10" HorizontalAlignment="Center"/>
 							</StackPanel>
 						</Button>
 						<Button DockPanel.Dock="Right" Command="{Binding PreviousWordCommand}" IsVisible="{Binding WordByWordMode}" Margin="10,0,0,0" HotKey="Ctrl+Left">
 							<StackPanel>
-								<TextBlock Text="Previous word" HorizontalAlignment="Center"/>
+								<TextBlock Text="{x:Static resx:Resources.PreviousWord}" HorizontalAlignment="Center"/>
 								<TextBlock Text="[Ctrl+←]" Foreground="{DynamicResource SecondaryTextColor}" FontSize="10" HorizontalAlignment="Center"/>
 							</StackPanel>
 						</Button>
 						<Button DockPanel.Dock="Right" Command="{Binding TimestampWordCommand}" IsVisible="{Binding WordByWordMode}" Margin="10,0,0,0" HotKey="Ctrl+.">
 							<StackPanel>
-								<TextBlock Text="Timestamp word" HorizontalAlignment="Center"/>
+								<TextBlock Text="{x:Static resx:Resources.TimestampWord}" HorizontalAlignment="Center"/>
 								<TextBlock Text="[Ctrl+.]" Foreground="{DynamicResource SecondaryTextColor}" FontSize="10" HorizontalAlignment="Center"/>
 							</StackPanel>
 						</Button>
 						<Button DockPanel.Dock="Left" Command="{Binding PreviousLineCommand}" Margin="0,0,10,0" HotKey="Ctrl+Up">
 							<StackPanel>
-								<TextBlock Text="Previous line" HorizontalAlignment="Center"/>
+								<TextBlock Text="{x:Static resx:Resources.PreviousLine}" HorizontalAlignment="Center"/>
 								<TextBlock Text="[Ctrl+↑]" Foreground="{DynamicResource SecondaryTextColor}" FontSize="10" HorizontalAlignment="Center"/>
 							</StackPanel>
 						</Button>
 						<Button DockPanel.Dock="Left" Command="{Binding NextLineCommand}" Margin="0,0,10,0" HotKey="Ctrl+Down">
 							<StackPanel>
-								<TextBlock Text="Next line" HorizontalAlignment="Center"/>
+								<TextBlock Text="{x:Static resx:Resources.NextLine}" HorizontalAlignment="Center"/>
 								<TextBlock Text="[Ctrl+↓]" Foreground="{DynamicResource SecondaryTextColor}" FontSize="10" HorizontalAlignment="Center"/>
 							</StackPanel>
 						</Button>
 						<Button HorizontalAlignment="Stretch" Command="{Binding TimestampLineCommand}" HotKey="Ctrl+Space">
 							<StackPanel>
-								<TextBlock Text="Timestamp line" HorizontalAlignment="Center"/>
+								<TextBlock Text="{x:Static resx:Resources.TimestampLine}" HorizontalAlignment="Center"/>
 								<TextBlock Text="[Ctrl+Space]" Foreground="{DynamicResource SecondaryTextColor}" FontSize="10" HorizontalAlignment="Center"/>
 							</StackPanel>
 						</Button>
@@ -182,40 +183,40 @@
 						</ListBox.DataTemplates>
 					</ListBox>
 					
-					<TextBlock Text="To start synchronizing, import an audio file using the File menu." IsVisible="{Binding !IsReady}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+					<TextBlock Text="{x:Static resx:Resources.Synchronize_ImportHint}" IsVisible="{Binding !IsReady}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
 				</DockPanel>
 			</TabItem>
-			<TabItem Header="Export">
+			<TabItem Header="{x:Static resx:Resources.Export}">
 				<ScrollViewer>
 					<StackPanel>
 						<WrapPanel>
 							<StackPanel>
-								<TextBlock Text="Format" FontWeight="Bold" FontSize="16"/>
-								<RadioButton GroupName="FormatGroup" Content="Plain LRC" IsChecked="{Binding ExportPlainLRC}"/>
-								<TextBlock FontSize="10" Foreground="{DynamicResource SecondaryTextColor}" Text="Most compatible"/>
-								<RadioButton GroupName="FormatGroup" Content="Enhanced LRC (word by word highlighting)" IsChecked="{Binding ExportEnhancedLRC}"/>
-								<TextBlock FontSize="10" Foreground="{DynamicResource SecondaryTextColor}" Text="Requires a special reader"/>
-								<CheckBox Content="With Translations" IsChecked="{Binding ExportWithTranslations}"/>
-								<TextBlock FontSize="10" Foreground="{DynamicResource SecondaryTextColor}" Text="Displays only in FRESHMusicPlayer 12 or later, readable (without translations) by most LRC readers"/>
+								<TextBlock Text="{x:Static resx:Resources.Export_Format}" FontWeight="Bold" FontSize="16"/>
+								<RadioButton GroupName="FormatGroup" Content="{x:Static resx:Resources.Export_PlainLRC}" IsChecked="{Binding ExportPlainLRC}"/>
+								<TextBlock FontSize="10" Foreground="{DynamicResource SecondaryTextColor}" Text="{x:Static resx:Resources.Export_PlainLRC_Hint}"/>
+								<RadioButton GroupName="FormatGroup" Content="{x:Static resx:Resources.Export_EnhancedLRC}" IsChecked="{Binding ExportEnhancedLRC}"/>
+								<TextBlock FontSize="10" Foreground="{DynamicResource SecondaryTextColor}" Text="{x:Static resx:Resources.Export_EnhancedLRC_Hint}"/>
+								<CheckBox Content="{x:Static resx:Resources.Export_WithTranslations}" IsChecked="{Binding ExportWithTranslations}"/>
+								<TextBlock FontSize="10" Foreground="{DynamicResource SecondaryTextColor}" Text="{x:Static resx:Resources.Export_WithTranslations_Hint}"/>
 							</StackPanel>
 
 							<StackPanel>
-								<TextBlock Text="LRC Options" FontWeight="Bold" FontSize="16"/>
-								<TextBlock FontSize="10" Foreground="{DynamicResource SecondaryTextColor}" Text="Enabling these might improve compatibility with certain readers"/>
-								<TextBlock FontSize="10" Foreground="{DynamicResource SecondaryTextColor}" Text="Don't enable them if you aren't having problems"/>
-								<CheckBox Content="Don't include metadata headers" IsChecked="{Binding ExportWithoutMetadata}"/>
-								<CheckBox Content="Use 2 digits of precision" IsChecked="{Binding ExportWithTwoDigitPrecision}"/>
+								<TextBlock Text="{x:Static resx:Resources.Export_LRCOptions}" FontWeight="Bold" FontSize="16"/>
+								<TextBlock FontSize="10" Foreground="{DynamicResource SecondaryTextColor}" Text="{x:Static resx:Resources.Export_LRCOptions_HintOne}"/>
+								<TextBlock FontSize="10" Foreground="{DynamicResource SecondaryTextColor}" Text="{x:Static resx:Resources.Export_LRCOptions_HintTwo}"/>
+								<CheckBox Content="{x:Static resx:Resources.Export_LRCOptions_WithoutMetadata}" IsChecked="{Binding ExportWithoutMetadata}"/>
+								<CheckBox Content="{x:Static resx:Resources.Export_LRCOptions_TwoDigitPrecision}" IsChecked="{Binding ExportWithTwoDigitPrecision}"/>
 							</StackPanel>
 
 							<StackPanel>
-								<TextBlock Text="Preview" FontWeight="Bold" FontSize="16"/>
+								<TextBlock Text="{x:Static resx:Resources.Preview}" FontWeight="Bold" FontSize="16"/>
 								<Border CornerRadius="5" Background="{DynamicResource ForegroundColor}" Padding="10">
 									<TextBlock Text="{Binding LrcFilePreview}"/>
 								</Border>
 							</StackPanel>
 
 						</WrapPanel>
-						<Button Content="Export!" Command="{Binding ExportCommand}" Margin="0,10,0,0"/>
+						<Button Content="{x:Static resx:Resources.ExportEnthusiastically}" Command="{Binding ExportCommand}" Margin="0,10,0,0"/>
 					</StackPanel>
 					
 				</ScrollViewer>

@@ -3,6 +3,7 @@
 		xmlns:vm="using:FRESHLyricMaker.ViewModels"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+		xmlns:resx="clr-namespace:FRESHLyricMaker.Properties"
         mc:Ignorable="d" Width="400" Height="400"
         x:Class="FRESHLyricMaker.Views.AboutDialog" SizeToContent="Height"
         Title="About FRESHLyricMaker">
@@ -19,23 +20,23 @@
 			<TextBlock Grid.Column="0" Grid.Row="0" Text="FRESHLyricMaker" Foreground="{DynamicResource SecondaryTextColor}"/>
 			<TextBlock Grid.Column="1" Grid.Row="0" Text="{Binding AppVersion}" Margin="15,0,0,5"/>
 			
-			<TextBlock Grid.Column="0" Grid.Row="1" Text="Release Stream" Foreground="{DynamicResource SecondaryTextColor}"/>
+			<TextBlock Grid.Column="0" Grid.Row="1" Text="{x:Static resx:Resources.About_ReleaseStream}" Foreground="{DynamicResource SecondaryTextColor}"/>
 			<TextBlock Grid.Column="1" Grid.Row="1" Text="Blueprint" Margin="15,0,0,5"/>
 			
-			<TextBlock Grid.Column="0" Grid.Row="2" Text="Operating System" Foreground="{DynamicResource SecondaryTextColor}"/>
+			<TextBlock Grid.Column="0" Grid.Row="2" Text="{x:Static resx:Resources.About_OperatingSystem}" Foreground="{DynamicResource SecondaryTextColor}"/>
 			<TextBlock Grid.Column="1" Grid.Row="2" Text="{Binding OSVersion}" Margin="15,0,0,5"/>
 			
-			<TextBlock Grid.Column="0" Grid.Row="3" Text="Framework" Foreground="{DynamicResource SecondaryTextColor}"/>
+			<TextBlock Grid.Column="0" Grid.Row="3" Text="{x:Static resx:Resources.About_Framework}" Foreground="{DynamicResource SecondaryTextColor}"/>
 			<TextBlock Grid.Column="1" Grid.Row="3" Text="{Binding FrameworkVersion}" Margin="15,0,0,5"/>
 		</Grid>
 		
-		<Button Content="FRESHLyricMaker on the interwebs" Command="{Binding OpenProjectWebsite}"/>
-		<Button Content="Report an issue" Command="{Binding ReportIssue}"/>
-		<Button Content="View source code" Command="{Binding OpenSourceCode}"/>
+		<Button Content="{x:Static resx:Resources.About_ProjectWebsite}" Command="{Binding OpenProjectWebsite}"/>
+		<Button Content="{x:Static resx:Resources.About_ReportIssue}" Command="{Binding ReportIssue}"/>
+		<Button Content="{x:Static resx:Resources.About_SourceCode}" Command="{Binding OpenSourceCode}"/>
 		
-		<TextBlock Foreground="{DynamicResource SecondaryTextColor}" Text="Copyright © 2022 Squidhouse Software (and open source contributors)" TextWrapping="Wrap" FontSize="10"/>
-		<TextBlock Foreground="{DynamicResource SecondaryTextColor}" Text="Licensed under the MIT license" TextWrapping="Wrap" FontSize="10"/>
+		<TextBlock Foreground="{DynamicResource SecondaryTextColor}" Text="{x:Static resx:Resources.About_Copyright}" TextWrapping="Wrap" FontSize="10"/>
+		<TextBlock Foreground="{DynamicResource SecondaryTextColor}" Text="{x:Static resx:Resources.About_License}" TextWrapping="Wrap" FontSize="10"/>
 
-		<TextBlock Text="Thank you for using FRESHLyricMaker ❤" TextWrapping="Wrap" HorizontalAlignment="Center"/>
+		<TextBlock Text="{x:Static resx:Resources.About_Thankyou}" TextWrapping="Wrap" HorizontalAlignment="Center"/>
 	</StackPanel>
 </Window>
