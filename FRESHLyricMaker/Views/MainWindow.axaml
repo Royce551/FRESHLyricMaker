@@ -39,7 +39,8 @@
 					</NativeMenuItem>
 					<NativeMenuItem Header="{x:Static resx:Resources.Menu_Options_Language}">
 						<NativeMenu>
-							<NativeMenuItem Header="_English" IsChecked="True"/>
+							<NativeMenuItem Header="{x:Static resx:Resources.Menu_Options_Language_Automatic}" IsChecked="True"/>
+							<NativeMenuItem Header="_English"/>
 						</NativeMenu>
 					</NativeMenuItem>
 				</NativeMenu>
@@ -70,7 +71,7 @@
 		</DockPanel>
 
 
-		<TabControl SelectedIndex="2">
+		<TabControl SelectedIndex="{Binding SelectedTabIndex}" HorizontalAlignment="Stretch">
 			<TabItem Header="{x:Static resx:Resources.Write}">
 				<ScrollViewer>
 					<WrapPanel Orientation="Horizontal">
@@ -142,23 +143,24 @@
 								<TextBlock Text="[Ctrl+↓]" Foreground="{DynamicResource SecondaryTextColor}" FontSize="10" HorizontalAlignment="Center"/>
 							</StackPanel>
 						</Button>
-						<Button HorizontalAlignment="Stretch" Command="{Binding TimestampLineCommand}" HotKey="Ctrl+Space">
+						<Button HorizontalAlignment="Stretch" Command="{Binding TimestampLineCommand}" HotKey="Ctrl+,">
 							<StackPanel>
 								<TextBlock Text="{x:Static resx:Resources.TimestampLine}" HorizontalAlignment="Center"/>
-								<TextBlock Text="[Ctrl+Space]" Foreground="{DynamicResource SecondaryTextColor}" FontSize="10" HorizontalAlignment="Center"/>
+								<TextBlock Text="[Ctrl+,]" Foreground="{DynamicResource SecondaryTextColor}" FontSize="10" HorizontalAlignment="Center"/>
 							</StackPanel>
 						</Button>
 					</DockPanel>
 					
-					<ListBox Items="{Binding Song}" SelectedIndex="{Binding SelectedLineIndex}" SelectionMode="AlwaysSelected" Background="{DynamicResource BackgroundColor}" ScrollViewer.HorizontalScrollBarVisibility="Auto" IsVisible="{Binding IsReady}">
+					<ListBox Items="{Binding Song}" SelectedIndex="{Binding SelectedLineIndex}" HorizontalAlignment="Stretch" SelectionMode="AlwaysSelected" Background="{DynamicResource BackgroundColor}" ScrollViewer.HorizontalScrollBarVisibility="Auto" IsVisible="{Binding IsReady}">
 						<ListBox.Styles>
 							<Style Selector="ListBox /template/ ListBox#PART_ItemsPresenter">
 								<Setter Property="Margin" Value="-50"/>
+								<Setter Property="HorizontalAlignment" Value="Stretch"/>
 							</Style>
 						</ListBox.Styles>
 						<ListBox.DataTemplates>
 							<DataTemplate>
-								<Border CornerRadius="5" Background="{DynamicResource ForegroundColor}" Margin="-5" Padding="5">
+								<Border CornerRadius="5" Background="{DynamicResource ForegroundColor}" HorizontalAlignment="Stretch" Margin="-5" Padding="5">
 									<DockPanel>
 										<TextBlock DockPanel.Dock="Left" Text="{Binding TimeStamp, StringFormat=\{0:mm\\:ss\\:fff\}}" Margin="0,0,10,0" Foreground="{DynamicResource SecondaryTextColor}" VerticalAlignment="Center"/>
 										<ListBox Items="{Binding Words}" SelectedIndex="{Binding SelectedWordIndex}" SelectionMode="Single">

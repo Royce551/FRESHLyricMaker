@@ -228,6 +228,9 @@
   <data name="Menu_Options_Language" xml:space="preserve">
     <value>_Language</value>
   </data>
+  <data name="Menu_Options_Language_Automatic" xml:space="preserve">
+    <value>_Automatic</value>
+  </data>
   <data name="Menu_Options_Theme" xml:space="preserve">
     <value>_Theme</value>
   </data>

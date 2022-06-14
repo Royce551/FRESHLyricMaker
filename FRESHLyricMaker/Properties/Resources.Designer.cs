@@ -232,7 +232,7 @@ namespace FRESHLyricMaker.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Use 2 digitsw of precision.
+        ///   Looks up a localized string similar to Use 2 digits of precision.
         /// </summary>
         public static string Export_LRCOptions_TwoDigitPrecision {
             get {
@@ -390,6 +390,15 @@ namespace FRESHLyricMaker.Properties {
         public static string Menu_Options_Language {
             get {
                 return ResourceManager.GetString("Menu_Options_Language", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to _Automatic.
+        /// </summary>
+        public static string Menu_Options_Language_Automatic {
+            get {
+                return ResourceManager.GetString("Menu_Options_Language_Automatic", resourceCulture);
             }
         }
         
