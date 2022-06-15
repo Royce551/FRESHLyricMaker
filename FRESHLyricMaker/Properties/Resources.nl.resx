@@ -118,168 +118,168 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="About_Copyright" xml:space="preserve">
-    <value></value>
+    <value>Copyright © 2022 Squidhouse Software (en open source-bijdragers)</value>
   </data>
   <data name="About_Framework" xml:space="preserve">
-    <value></value>
+    <value>Framework</value>
   </data>
   <data name="About_License" xml:space="preserve">
-    <value></value>
+    <value>Gelicenseerd onder de MIT license</value>
   </data>
   <data name="About_OperatingSystem" xml:space="preserve">
-    <value></value>
+    <value>Besturingssysteem</value>
   </data>
   <data name="About_ProjectWebsite" xml:space="preserve">
-    <value></value>
+    <value>FRESHLyricMaker op internet</value>
   </data>
   <data name="About_ReleaseStream" xml:space="preserve">
-    <value></value>
+    <value>Releasestroom</value>
   </data>
   <data name="About_ReportIssue" xml:space="preserve">
-    <value></value>
+    <value>Bug rapporten</value>
   </data>
   <data name="About_SourceCode" xml:space="preserve">
-    <value></value>
+    <value>Broncode weergeven</value>
   </data>
   <data name="About_Thankyou" xml:space="preserve">
-    <value></value>
+    <value>Bedankt voor het gebruiken van FRESHLyricMaker ❤</value>
   </data>
   <data name="AddTranslation" xml:space="preserve">
-    <value></value>
+    <value>Vertaling toevoegen</value>
   </data>
   <data name="BackFiveSec" xml:space="preserve">
-    <value></value>
+    <value>5 seconden achteruit</value>
   </data>
   <data name="EnhancedLRC_NotSupported" xml:space="preserve">
-    <value></value>
+    <value>Uitgebreide LRC wordt nog niet ondersteund :(</value>
   </data>
   <data name="Export" xml:space="preserve">
-    <value></value>
+    <value>Exporteren</value>
   </data>
   <data name="ExportEnthusiastically" xml:space="preserve">
-    <value></value>
+    <value>Exporteren!</value>
   </data>
   <data name="Export_EnhancedLRC" xml:space="preserve">
-    <value></value>
+    <value>Uitgebreide LRC (woord-voor-woordmarkering</value>
   </data>
   <data name="Export_EnhancedLRC_Hint" xml:space="preserve">
-    <value></value>
+    <value>Vereist een speciale lezer</value>
   </data>
   <data name="Export_Format" xml:space="preserve">
-    <value></value>
+    <value>Formaat</value>
   </data>
   <data name="Export_LRCOptions" xml:space="preserve">
-    <value></value>
+    <value>LRC-opties</value>
   </data>
   <data name="Export_LRCOptions_HintOne" xml:space="preserve">
-    <value></value>
+    <value>Deze opties kunnen ondersteuning door andere lezers verbeteren</value>
   </data>
   <data name="Export_LRCOptions_HintTwo" xml:space="preserve">
-    <value></value>
+    <value>Zet ze niet aan als je nergens last van hebt</value>
   </data>
   <data name="Export_LRCOptions_TwoDigitPrecision" xml:space="preserve">
-    <value></value>
+    <value>Twee cijfers aan precisie gebruiken</value>
   </data>
   <data name="Export_LRCOptions_WithoutMetadata" xml:space="preserve">
-    <value></value>
+    <value>Geen metadata-headers bijsluiten</value>
   </data>
   <data name="Export_PlainLRC" xml:space="preserve">
-    <value></value>
+    <value>Pure LRC</value>
   </data>
   <data name="Export_PlainLRC_Hint" xml:space="preserve">
-    <value></value>
+    <value>Meest compitabel</value>
   </data>
   <data name="Export_WithTranslations" xml:space="preserve">
-    <value></value>
+    <value>Met vertalingen</value>
   </data>
   <data name="Export_WithTranslations_Hint" xml:space="preserve">
-    <value></value>
+    <value>Vertalingen worden alleen weergegeven in lezers die ze ondersteunen, leesbaar (zonder vertalingen) door de meeste LRC-lezers</value>
   </data>
   <data name="ForwardFiveSec" xml:space="preserve">
-    <value></value>
+    <value>5 seconden vooruit</value>
   </data>
   <data name="InvalidLanguage" xml:space="preserve">
-    <value></value>
+    <value>Ongeldige Taal</value>
   </data>
   <data name="InvalidTranslation" xml:space="preserve">
-    <value></value>
+    <value>De {0} vertaling klopt niet met de brontaal</value>
   </data>
   <data name="Menu_File" xml:space="preserve">
-    <value></value>
+    <value>_Bestand</value>
   </data>
   <data name="Menu_File_Audio" xml:space="preserve">
-    <value></value>
+    <value>_Audio Importeren</value>
   </data>
   <data name="Menu_File_LRC" xml:space="preserve">
-    <value></value>
+    <value>_LRC-bestand Importeren</value>
   </data>
   <data name="Menu_Help" xml:space="preserve">
-    <value></value>
+    <value>_Help</value>
   </data>
   <data name="Menu_Help_About" xml:space="preserve">
-    <value></value>
+    <value>_Over FRESHLyricMaker...</value>
   </data>
   <data name="Menu_Help_OpenHelp" xml:space="preserve">
-    <value></value>
+    <value>_Help...</value>
   </data>
   <data name="Menu_Options" xml:space="preserve">
-    <value></value>
+    <value>_Opties</value>
   </data>
   <data name="Menu_Options_Language" xml:space="preserve">
-    <value></value>
+    <value>_Taal</value>
   </data>
   <data name="Menu_Options_Theme" xml:space="preserve">
-    <value></value>
+    <value>T_hema</value>
   </data>
   <data name="Menu_Options_Theme_Dark" xml:space="preserve">
-    <value></value>
+    <value>_Donker</value>
   </data>
   <data name="Menu_Options_Theme_Light" xml:space="preserve">
-    <value></value>
+    <value>_Licht</value>
   </data>
   <data name="Menu_Options_Volume" xml:space="preserve">
-    <value></value>
+    <value>_Volume</value>
   </data>
   <data name="NextLine" xml:space="preserve">
-    <value></value>
+    <value>Volgende regel</value>
   </data>
   <data name="NextWord" xml:space="preserve">
-    <value></value>
+    <value>Volgend woord</value>
   </data>
   <data name="PlayPause" xml:space="preserve">
-    <value></value>
+    <value>Spelen/Pauzeren</value>
   </data>
   <data name="Preview" xml:space="preserve">
-    <value></value>
+    <value>Voorbeeld</value>
   </data>
   <data name="PreviousLine" xml:space="preserve">
-    <value></value>
+    <value>Vorige regel</value>
   </data>
   <data name="PreviousWord" xml:space="preserve">
-    <value></value>
+    <value>Vorig woord</value>
   </data>
   <data name="SourceLanguage" xml:space="preserve">
-    <value></value>
+    <value>Brontaal</value>
   </data>
   <data name="Synchronize" xml:space="preserve">
-    <value></value>
+    <value>Synchroniseren</value>
   </data>
   <data name="Synchronize_ImportHint" xml:space="preserve">
-    <value></value>
+    <value>Importeer een audiobestand met het menu Bestand om te beginnen met synchroniseren.</value>
   </data>
   <data name="TimestampLine" xml:space="preserve">
-    <value></value>
+    <value>Tijdstip regel</value>
   </data>
   <data name="TimestampWord" xml:space="preserve">
-    <value></value>
+    <value>Tijdstip woord</value>
   </data>
   <data name="TranslationHint" xml:space="preserve">
-    <value></value>
+    <value>Zorg dat dit voor elke regel overeenkomt met de brontaal, anders zijn de resultaten nogal teleurstellend</value>
   </data>
   <data name="WordByWordMode" xml:space="preserve">
-    <value></value>
+    <value>Woord-voor-woordmodus</value>
   </data>
   <data name="Write" xml:space="preserve">
-    <value></value>
+    <value>Schrijven</value>
   </data>
 </root>
