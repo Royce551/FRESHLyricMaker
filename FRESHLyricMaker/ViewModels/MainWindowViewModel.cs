@@ -78,6 +78,7 @@ namespace FRESHLyricMaker.ViewModels
 
         public void SetThemeToDarkCommand()
         {
+            App.Config.Theme = Theme.Dark;
             var darkSIADLTheme = new StyleInclude(new Uri("avares://FRESHLyricMaker"))
             {
                 Source = new Uri("avares://SIADL.Avalonia/DarkTheme.axaml")
@@ -92,10 +93,16 @@ namespace FRESHLyricMaker.ViewModels
             Avalonia.Application.Current.Styles[1] = darkSIADLTheme;
             // this is all a bit hacky; hopefully can be improved soon!
             Desktop.ShutdownMode = ShutdownMode.OnExplicitShutdown;
+            var pos = MainWindow.Position;
+            var width = MainWindow.Width;
+            var height = MainWindow.Height;
             MainWindow?.Close();
             MainWindow = new MainWindow
             {
-                DataContext = this
+                DataContext = this,
+                Position = pos,
+                Width = width,
+                Height = height
             };
             MainWindow.Show();
             Desktop.ShutdownMode = ShutdownMode.OnMainWindowClose;
@@ -103,6 +110,7 @@ namespace FRESHLyricMaker.ViewModels
 
         public void SetThemeToLightCommand()
         {
+            App.Config.Theme = Theme.Light;
             var lightSIADLTheme = new StyleInclude(new Uri("avares://FRESHLyricMaker"))
             {
                 Source = new Uri("avares://SIADL.Avalonia/LightTheme.axaml")
@@ -117,10 +125,16 @@ namespace FRESHLyricMaker.ViewModels
             Avalonia.Application.Current.Styles[1] = lightSIADLTheme;
             // this is all a bit hacky; hopefully can be improved soon!
             Desktop.ShutdownMode = ShutdownMode.OnExplicitShutdown;
+            var pos = MainWindow.Position;
+            var width = MainWindow.Width;
+            var height = MainWindow.Height;
             MainWindow?.Close();
             MainWindow = new MainWindow
             {
-                DataContext = this
+                DataContext = this,
+                Position = pos,
+                Width = width,
+                Height = height
             };
             MainWindow.Show();
             Desktop.ShutdownMode = ShutdownMode.OnMainWindowClose;
@@ -255,6 +269,13 @@ namespace FRESHLyricMaker.ViewModels
         public void AddTranslationCommand()
         {
             Translations.Add(new Translation(this));
+        }
+
+        private int selectedTabIndex;
+        public int SelectedTabIndex
+        {
+            get => selectedTabIndex;
+            set => this.RaiseAndSetIfChanged(ref selectedTabIndex, value);
         }
 
         // Synchronizer

@@ -6,7 +6,7 @@ namespace FRESHLyricMaker.Views
 {
     public partial class MainWindow : Window
     {
-        private MainWindowViewModel ViewModel => (DataContext as MainWindowViewModel) ?? throw new InvalidOperationException();
+        public MainWindowViewModel ViewModel => (DataContext as MainWindowViewModel) ?? throw new InvalidOperationException();
 
         public MainWindow()
         {
